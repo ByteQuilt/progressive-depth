@@ -1,0 +1,137 @@
+/**
+ * Progressive Depth - Base Styles
+ *
+ * Functional styles only. Provides visibility toggling via
+ * data attributes and CSS custom properties for theming.
+ *
+ * Import this file for basic functionality:
+ *   import '@bytequilt/progressive-depth/styles.css';
+ *
+ * Then override custom properties to match your site.
+ */
+
+/* ------------------------------------------------------------------ */
+/*  Custom Properties (override these)                                 */
+/* ------------------------------------------------------------------ */
+
+.progressive-depth {
+  --pd-canopy-font-size: 1.2rem;
+  --pd-canopy-font-weight: 500;
+  --pd-canopy-line-height: 1.5;
+  --pd-canopy-color: inherit;
+
+  --pd-understory-font-size: 1rem;
+  --pd-understory-font-weight: 400;
+  --pd-understory-line-height: 1.7;
+  --pd-understory-color: inherit;
+
+  --pd-mycelium-font-size: 0.925rem;
+  --pd-mycelium-font-weight: 400;
+  --pd-mycelium-line-height: 1.8;
+  --pd-mycelium-color: inherit;
+  --pd-mycelium-border-color: currentColor;
+  --pd-mycelium-border-width: 2px;
+  --pd-mycelium-padding-left: 1rem;
+
+  --pd-toggle-gap: 4px;
+  --pd-toggle-padding: 4px;
+  --pd-toggle-border-radius: 10px;
+  --pd-toggle-bg: transparent;
+
+  --pd-toggle-button-padding: 8px 16px;
+  --pd-toggle-button-border-radius: 8px;
+  --pd-toggle-button-font-size: 0.85rem;
+
+  --pd-transition-duration: 0.4s;
+  --pd-transition-easing: ease;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Layer Styles                                                       */
+/* ------------------------------------------------------------------ */
+
+.progressive-depth-canopy {
+  font-size: var(--pd-canopy-font-size);
+  font-weight: var(--pd-canopy-font-weight);
+  line-height: var(--pd-canopy-line-height);
+  color: var(--pd-canopy-color);
+}
+
+.progressive-depth-understory {
+  font-size: var(--pd-understory-font-size);
+  font-weight: var(--pd-understory-font-weight);
+  line-height: var(--pd-understory-line-height);
+  color: var(--pd-understory-color);
+}
+
+.progressive-depth-mycelium {
+  font-size: var(--pd-mycelium-font-size);
+  font-weight: var(--pd-mycelium-font-weight);
+  line-height: var(--pd-mycelium-line-height);
+  color: var(--pd-mycelium-color);
+  padding-left: var(--pd-mycelium-padding-left);
+  border-left: var(--pd-mycelium-border-width) solid var(--pd-mycelium-border-color);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Visibility                                                         */
+/* ------------------------------------------------------------------ */
+
+.progressive-depth-understory[data-pd-visible="false"],
+.progressive-depth-mycelium[data-pd-visible="false"] {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition:
+    max-height var(--pd-transition-duration) var(--pd-transition-easing),
+    opacity var(--pd-transition-duration) var(--pd-transition-easing);
+}
+
+.progressive-depth-understory[data-pd-visible="true"],
+.progressive-depth-mycelium[data-pd-visible="true"] {
+  max-height: 5000px;
+  opacity: 1;
+  transition:
+    max-height var(--pd-transition-duration) var(--pd-transition-easing),
+    opacity var(--pd-transition-duration) var(--pd-transition-easing);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Toggle                                                             */
+/* ------------------------------------------------------------------ */
+
+.progressive-depth-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--pd-toggle-gap);
+  padding: var(--pd-toggle-padding);
+  border-radius: var(--pd-toggle-border-radius);
+  background-color: var(--pd-toggle-bg);
+  width: fit-content;
+}
+
+.progressive-depth-toggle-button {
+  padding: var(--pd-toggle-button-padding);
+  border-radius: var(--pd-toggle-button-border-radius);
+  border: none;
+  cursor: pointer;
+  font-size: var(--pd-toggle-button-font-size);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reduced Motion                                                     */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .progressive-depth-understory[data-pd-visible="false"],
+  .progressive-depth-understory[data-pd-visible="true"],
+  .progressive-depth-mycelium[data-pd-visible="false"],
+  .progressive-depth-mycelium[data-pd-visible="true"] {
+    transition: none;
+  }
+}

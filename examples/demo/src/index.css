@@ -1,0 +1,169 @@
+:root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #374151;
+  background-color: #f9fafb;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  padding-top: 4rem;
+  padding-bottom: 6rem;
+}
+
+.content-wrapper {
+  width: 100%;
+  max-width: 42rem; /* Optimal reading width ~65ch */
+  padding: 0 1.5rem;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 3rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 0 0 1.5rem 0;
+  color: #111827;
+}
+
+p.intro {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #6b7280;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+  color: #111827;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.75rem;
+}
+
+/* --- Progressive Depth Theme Overrides --- */
+
+.progressive-depth {
+  /* Canopy: The "Headline" layer. Bold, dark, concise. */
+  --pd-canopy-font-size: 1.25rem;
+  --pd-canopy-font-weight: 600;
+  --pd-canopy-line-height: 1.6;
+  --pd-canopy-color: #1f2937;
+
+  /* Understory: The "Context" layer. Standard body, highly readable. */
+  --pd-understory-font-size: 1.05rem;
+  --pd-understory-font-weight: 400;
+  --pd-understory-line-height: 1.75;
+  --pd-understory-color: #4b5563;
+
+  /* Mycelium: The "Detail" layer. Technical, dense, distinct. */
+  --pd-mycelium-font-size: 0.925rem;
+  --pd-mycelium-font-weight: 400;
+  --pd-mycelium-line-height: 1.6;
+  --pd-mycelium-color: #4b5563;
+  --pd-mycelium-border-color: #059669; /* Emerald Green */
+  --pd-mycelium-border-width: 3px;
+  --pd-mycelium-padding-left: 1.25rem;
+
+  /* Toggle Control Variables (consumed by base styles) */
+  --pd-toggle-bg: #f3f4f6;
+  --pd-toggle-padding: 0.375rem;
+  --pd-toggle-border-radius: 9999px;
+  --pd-toggle-gap: 0.25rem;
+  
+  --pd-toggle-button-padding: 0.5rem 1rem;
+  --pd-toggle-button-border-radius: 9999px;
+  --pd-toggle-button-font-size: 0.875rem;
+
+  /* Spacing */
+  margin-bottom: 4rem;
+}
+
+/* Toggle Component Styling */
+.progressive-depth-toggle {
+  /* Sticky behavior */
+  position: sticky;
+  top: 2rem;
+  z-index: 50;
+  
+  /* Glassmorphism background */
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Centering */
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+  
+  /* Shadow */
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0,0,0,0.05);
+}
+
+.progressive-depth-toggle-button {
+  font-weight: 500;
+  color: #6b7280;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progressive-depth-toggle-button:hover {
+  color: #111827;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.progressive-depth-toggle-button[data-pd-active="true"] {
+  background-color: #ffffff;
+  color: #059669; /* Emerald 600 */
+  box-shadow: 
+    0 1px 3px 0 rgba(0, 0, 0, 0.1), 
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  font-weight: 600;
+}
+
+/* Layer Layout Refinements */
+.progressive-depth-canopy p,
+.progressive-depth-understory p,
+.progressive-depth-mycelium p {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.progressive-depth-understory {
+  margin-top: 1.5rem;
+}
+
+.progressive-depth-mycelium {
+  margin-top: 1.5rem;
+  background-color: #fff;     /* Card-like look */
+  padding: 1.5rem;            /* More breathing room */
+  border-radius: 0 0.5rem 0.5rem 0;
+  border-left: 3px solid #059669; /* Reinforce the variable */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  h1 { font-size: 2.25rem; }
+  .progressive-depth-toggle { top: 1rem; width: 100%; justify-content: center; }
+  .content-wrapper { padding: 0 1rem; }
+}

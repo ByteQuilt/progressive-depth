@@ -1,0 +1,56 @@
+{
+  "name": "@bytequilt/progressive-depth",
+  "version": "1.0.0",
+  "description": "A content format for how people actually read. Three layers of depth per section, scaled by the golden ratio.",
+  "author": "Brandon D. Phillips <brandon.phillips@bytequilt.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bytequilt/progressive-depth"
+  },
+  "homepage": "https://bytesbybrandon.com/blog/introducing-progressive-depth-a-blog-format-for-how-people-actually-read",
+  "keywords": [
+    "progressive-disclosure",
+    "blog",
+    "content-format",
+    "markdoc",
+    "keystatic",
+    "golden-ratio",
+    "reading-modes",
+    "progressive-depth"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0"
+  }
+}
