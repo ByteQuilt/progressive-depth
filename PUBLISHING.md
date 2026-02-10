@@ -1,49 +1,50 @@
 # Publishing Guide
 
-This guide explains how to release new versions of `@bytequilt/progressive-depth` to GitHub Packages.
+This guide explains how to release new versions of `@bytequilt/progressive-depth`.
 
-## Prerequisites
+We use GitHub Actions to automatically publish the package when a new Release is created on GitHub.
 
-1.  **Personal Access Token (PAT)**: You need a GitHub Personal Access Token with `write:packages` scope.
-2.  **Login**: Authenticate with GitHub Packages locally:
-    ```bash
-    npm login --registry=https://npm.pkg.github.com --scope=@ByteQuilt
-    ```
-    (Use your GitHub username and PAT as the password).
+## For Contributors
 
-## Release Workflow
+Contributors do not need to worry about publishing. Simply:
 
-### 1. Commit Changes
+1.  Open a Pull Request with your changes.
+2.  Ensure tests pass.
+3.  Once merged, a maintainer will handle the release.
 
-Ensure your working directory is clean and all changes are committed.
+## For Maintainers
 
-### 2. Bump Version
+### 1. Prepare Release
 
-Run one of the following commands to update the version, create a commit, and tag the release:
+On your local machine, pull the latest `main` branch and bump the version:
 
 ```bash
-# For bug fixes (1.0.0 -> 1.0.1)
-pnpm bump:patch
+git pull origin main
 
-# For new backward-compatible features (1.0.0 -> 1.1.0)
-pnpm bump:minor
+# Choose the appropriate bump type:
+pnpm bump:patch  # Bug fixes (1.0.0 -> 1.0.1)
+pnpm bump:minor  # Features (1.0.0 -> 1.1.0)
+pnpm bump:major  # Breaking changes (1.0.0 -> 2.0.0)
 
-# For breaking changes (1.0.0 -> 2.0.0)
-pnpm bump:major
+# Push the version commit and tag
+git push --follow-tags
 ```
 
-### 3. Build & Publish
+### 2. Trigger Publication
 
-Run the release script. This will automatically rebuild the project (`prepublishOnly`) and publish it to the registry.
+Go to the [Releases page on GitHub](https://github.com/ByteQuilt/progressive-depth/releases) and draft a new release:
+
+1.  Click **Draft a new release**.
+2.  Select the tag you just pushed (e.g., `v1.0.1`).
+3.  Generate release notes.
+4.  Click **Publish release**.
+
+The [Publish Package](./.github/workflows/publish.yml) workflow will automatically build and publish the package to the GitHub Package Registry.
+
+### Manual Fallback
+
+If CI fails, you can still publish manually from your local machine (requires authentication):
 
 ```bash
 pnpm release
-```
-
-### 4. Push to GitHub
-
-Push the new version commit and the created tag to the repository.
-
-```bash
-git push --follow-tags
 ```

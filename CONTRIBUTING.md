@@ -22,6 +22,21 @@ npm install
 npm run dev
 ```
 
+## Workflow
+
+We use GitHub Actions for Continuous Integration.
+
+1.  **Fork** the repository and create a feature branch.
+2.  **Make changes** locally.
+3.  **Run checks** before pushing:
+    ```bash
+    pnpm typecheck
+    pnpm build
+    ```
+4.  **Open a Pull Request** to `main`.
+    - The CI workflow will automatically run tests and build checks.
+    - The `main` branch is protected; changes must pass CI before merging.
+
 ## Pull Requests
 
 - Keep changes focused. One PR per feature or fix.
