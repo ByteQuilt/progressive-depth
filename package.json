@@ -6,7 +6,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bytequilt/progressive-depth"
+    "url": "https://github.com/ByteQuilt/progressive-depth.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "homepage": "https://bytesbybrandon.com/blog/introducing-progressive-depth-a-blog-format-for-how-people-actually-read",
   "keywords": [
@@ -40,7 +43,12 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm build",
+    "release": "pnpm publish --access public",
+    "bump:patch": "npm version patch",
+    "bump:minor": "npm version minor",
+    "bump:major": "npm version major"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
