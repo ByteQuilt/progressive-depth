@@ -1,7 +1,7 @@
 import React from 'react';
-import { useProgressiveDepth } from './context';
-import { MODE_ORDER, DEFAULT_MODE_LABELS } from './constants';
-import type { ReadingModeToggleProps } from './types';
+import { useToggle } from '../core/hooks/useToggle';
+import { DEFAULT_MODE_LABELS } from '../core/constants';
+import type { ReadingModeToggleProps } from '../core/types';
 
 /**
  * Reading mode toggle. Lets readers choose their depth.
@@ -26,34 +26,24 @@ export function ReadingModeToggle({
   className,
   labels,
 }: ReadingModeToggleProps) {
-  const { mode, setMode } = useProgressiveDepth();
+  const { modes, getModeProps, getToggleProps } = useToggle({ labels });
 
-  const mergedLabels = {
-    ...DEFAULT_MODE_LABELS,
-    ...labels,
-  };
+  const mergedLabels = { ...DEFAULT_MODE_LABELS, ...labels };
 
   return (
     <nav
       className={`progressive-depth-toggle ${className ?? ''}`.trim()}
-      role="radiogroup"
-      aria-label="Reading depth"
+      {...getToggleProps()}
     >
-      {MODE_ORDER.map((m) => {
-        const isActive = m === mode;
+      {modes.map((m) => {
         const info = mergedLabels[m];
 
         return (
           <button
             key={m}
             className="progressive-depth-toggle-button"
-            role="radio"
-            aria-checked={isActive}
-            aria-label={info.description}
+            {...getModeProps(m)}
             title={info.description}
-            data-pd-mode={m}
-            data-pd-active={isActive}
-            onClick={() => setMode(m)}
           >
             {info.label}
           </button>

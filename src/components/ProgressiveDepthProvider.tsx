@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { ProgressiveDepthContext } from './context';
-import { ReadingModeToggle } from './toggle';
-import type { ProgressiveDepthProviderProps } from './types';
+import React from 'react';
+import { Provider } from '../primitives/Provider';
+import { Root } from '../primitives/Root';
+import { ReadingModeToggle } from './ReadingModeToggle';
+import type { ProgressiveDepthProviderProps } from '../core/types';
 
 /**
  * Provider component for Progressive Depth.
@@ -32,20 +33,21 @@ export function ProgressiveDepthProvider({
   showToggle = true,
   toggleClassName,
   toggleLabels,
+  visibilityMap,
+  onModeChange,
 }: ProgressiveDepthProviderProps) {
-  const [mode, setMode] = useState(defaultMode);
-
   return (
-    <ProgressiveDepthContext.Provider value={{ mode, setMode }}>
-      <div className="progressive-depth" data-pd-mode={mode}>
+    <Provider
+      defaultMode={defaultMode}
+      visibilityMap={visibilityMap}
+      onModeChange={onModeChange}
+    >
+      <Root>
         {showToggle && (
-          <ReadingModeToggle
-            className={toggleClassName}
-            labels={toggleLabels}
-          />
+          <ReadingModeToggle className={toggleClassName} labels={toggleLabels} />
         )}
         {children}
-      </div>
-    </ProgressiveDepthContext.Provider>
+      </Root>
+    </Provider>
   );
 }

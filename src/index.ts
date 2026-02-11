@@ -1,20 +1,48 @@
-// Components
-export { ProgressiveDepthProvider } from './provider';
-export { Canopy, Understory, Mycelium } from './layers';
-export { ReadingModeToggle } from './toggle';
+// ---- Styled Components (backward compatible, primary API) ----
+export { ProgressiveDepthProvider } from './components/ProgressiveDepthProvider';
+export { Canopy, Understory, Mycelium } from './components';
+export { ReadingModeToggle } from './components/ReadingModeToggle';
 
-// Context and hooks
-export { useProgressiveDepth } from './context';
+// ---- Core Hooks ----
+export { useProgressiveDepth } from './core/hooks/useProgressiveDepth';
+export { useLayerVisibility } from './core/hooks/useLayerVisibility';
+export { useToggle } from './core/hooks/useToggle';
+export { usePersistence } from './core/hooks/usePersistence';
 
-// Constants
-export { PHI, MODE_ORDER, DEFAULT_MODE_LABELS } from './constants';
+// ---- Primitives (for custom builds) ----
+export { Provider } from './primitives/Provider';
+export { Root } from './primitives/Root';
+export { Layer } from './primitives/Layer';
+export { Toggle } from './primitives/Toggle';
 
-// Types
+// ---- Core Utilities ----
+export { isLayerVisible, resolveLayerVisibility } from './core/visibility';
+
+// ---- Constants ----
+export {
+  PHI,
+  MODE_ORDER,
+  LAYER_ORDER,
+  DEFAULT_MODE_LABELS,
+  DEFAULT_VISIBILITY_MAP,
+} from './core/constants';
+
+// ---- Types ----
 export type {
   ReadingMode,
   ReadingModeInfo,
+  LayerName,
+  VisibilityMap,
+  LayerVisibilityState,
   ProgressiveDepthContextValue,
+  UseToggleReturn,
+  UseToggleOptions,
+  UsePersistenceOptions,
   LayerProps,
+  LayerPrimitiveProps,
   ReadingModeToggleProps,
   ProgressiveDepthProviderProps,
-} from './types';
+  ProviderPrimitiveProps,
+  TogglePrimitiveProps,
+  RootPrimitiveProps,
+} from './core/types';
