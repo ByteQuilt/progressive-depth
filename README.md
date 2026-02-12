@@ -113,33 +113,26 @@ After drafting a section, check the proportions. If the canopy is longer than th
 
 ## Styling
 
-The reference component ships **unstyled**. It provides semantic class names and CSS custom properties so you can style it to match your site:
+The component ships with minimal functional styles and CSS custom properties for theming. Import the stylesheet, then override properties to match your site:
 
 ```css
-/* Layer visibility (handled by the component, but overridable) */
-.progressive-depth-canopy {
+/* Override custom properties on the root wrapper */
+.progressive-depth {
+  --pd-canopy-font-size: 1.2rem;
+  --pd-canopy-font-weight: 500;
+  --pd-canopy-color: #111111;
+
+  --pd-understory-font-size: 1rem;
+  --pd-understory-color: #333333;
+
+  --pd-mycelium-font-size: 0.925rem;
+  --pd-mycelium-color: #555555;
+  --pd-mycelium-border-color: #e0e0e0;
+
+  --pd-toggle-bg: #f0f0f0;
+  --pd-toggle-button-padding: 8px 16px;
+  --pd-toggle-button-font-size: 0.85rem;
 }
-.progressive-depth-understory {
-}
-.progressive-depth-mycelium {
-}
-
-/* CSS custom properties for theming */
---pd-canopy-font-size: 1.2rem;
---pd-canopy-font-weight: 500;
---pd-canopy-color: #111111;
-
---pd-understory-font-size: 1rem;
---pd-understory-color: #333333;
-
---pd-mycelium-font-size: 0.925rem;
---pd-mycelium-color: #555555;
---pd-mycelium-border-color: #e0e0e0;
-
---pd-toggle-bg: #f0f0f0;
---pd-toggle-active-bg: #ffffff;
---pd-toggle-active-color: #111111;
---pd-toggle-color: #666666;
 ```
 
 ## Philosophy
