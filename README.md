@@ -156,7 +156,7 @@ Read the full introduction: [Introducing Progressive Depth](https://bytesbybrand
 
 ## License
 
-[MIT](./LICENSE) - Copyright (c) 2026 ByteQuilt LLC
+[MIT](./LICENSE) - Copyright (c) 2023-2026 ByteQuilt LLC
 
 Build on it. Adapt the naming. Design your own visual treatment. Make it yours.
 
