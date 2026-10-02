@@ -1,5 +1,7 @@
 name: Publish Package
 
+# Each GitHub Release publishes the same build to npmjs (public, via npm trusted publishing)
+# and to GitHub Packages (for consumers whose @bytequilt scope points there).
 on:
   release:
     types: [published]
@@ -7,10 +9,14 @@ on:
 permissions:
   contents: read
   packages: write
+  id-token: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      # The tracked .npmrc reads this for GitHub Packages, and npm fails on unset variables.
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -18,15 +24,24 @@ jobs:
         with:
           version: 9
 
+      # Node 24 ships npm 11.5.1 or later, which trusted publishing requires.
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          registry-url: "https://npm.pkg.github.com"
-          scope: "@bytequilt"
+          node-version: "24"
 
       - run: pnpm install
       - run: pnpm run build
 
-      - run: pnpm publish --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # A re-run skips any registry that already has this version.
+      - name: Publish
+        run: |
+          spec="$(node -p 'const p = require("./package.json"); `${p.name}@${p.version}`')"
+          publish() {
+            if npm view "$spec" version --registry="$1" --@bytequilt:registry="$1" > /dev/null 2>&1; then
+              echo "$spec is already on $1"
+            else
+              npm publish --access public --registry="$1" --@bytequilt:registry="$1"
+            fi
+          }
+          publish https://registry.npmjs.org/
+          publish https://npm.pkg.github.com/
