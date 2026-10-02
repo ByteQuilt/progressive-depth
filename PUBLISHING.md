@@ -3,6 +3,10 @@
 This guide explains how to release new versions of `@bytequilt/progressive-depth`.
 
 We use GitHub Actions to automatically publish the package when a new Release is created on GitHub.
+Every release goes to two registries:
+
+- **npmjs** (public): `npm install @bytequilt/progressive-depth` works with no extra setup.
+- **GitHub Packages**: for projects whose `@bytequilt` scope points at `https://npm.pkg.github.com`.
 
 ## For Contributors
 
@@ -39,12 +43,26 @@ Go to the [Releases page on GitHub](https://github.com/ByteQuilt/progressive-dep
 3.  Generate release notes.
 4.  Click **Publish release**.
 
-The [Publish Package](./.github/workflows/publish.yml) workflow will automatically build and publish the package to the GitHub Package Registry.
+The [Publish Package](./.github/workflows/publish.yml) workflow builds once and publishes that build to both registries.
+npmjs authenticates through [trusted publishing](https://docs.npmjs.com/trusted-publishers), so no npm token is stored, and each version gets a provenance attestation.
+GitHub Packages authenticates with the workflow's `GITHUB_TOKEN`.
+Re-running the workflow skips any registry that already has the version.
+
+### One-Time npmjs Setup
+
+Trusted publishing is configured on the package after it exists on npmjs:
+
+1.  Sign in to npmjs as an owner of the `bytequilt` organization.
+2.  Open the package's **Settings** and add a **Trusted Publisher**.
+3.  Choose **GitHub Actions** with organization `ByteQuilt`, repository `progressive-depth`, and workflow `publish.yml`.
 
 ### Manual Fallback
 
-If CI fails, you can still publish manually from your local machine (requires authentication):
+If CI fails, you can still publish manually from your local machine:
 
 ```bash
-pnpm release
+npm login                # npmjs account with publish rights on @bytequilt
+pnpm run publish:npmjs   # npmjs only
+pnpm run publish:github  # GitHub Packages only (needs GITHUB_TOKEN with write:packages)
+pnpm release             # both
 ```
