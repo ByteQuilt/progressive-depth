@@ -26,3 +26,5 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+      # publint and attw check what consumers resolve: exports, types per module system, and package files.
+      - run: pnpm run check:package
