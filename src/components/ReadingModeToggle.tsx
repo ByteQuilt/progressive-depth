@@ -31,7 +31,7 @@ export function ReadingModeToggle({
   const mergedLabels = { ...DEFAULT_MODE_LABELS, ...labels };
 
   return (
-    <nav
+    <div
       className={`progressive-depth-toggle ${className ?? ''}`.trim()}
       {...getToggleProps()}
     >
@@ -49,6 +49,6 @@ export function ReadingModeToggle({
           </button>
         );
       })}
-    </nav>
+    </div>
   );
 }

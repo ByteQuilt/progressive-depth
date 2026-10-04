@@ -44,6 +44,9 @@
 
   --pd-transition-duration: 0.4s;
   --pd-transition-easing: ease;
+
+  /* Lets layer height animate to and from `auto` in browsers that support it; others open and close instantly. */
+  interpolate-size: allow-keywords;
 }
 
 /* ------------------------------------------------------------------ */
@@ -77,26 +80,43 @@
 /*  Visibility                                                         */
 /* ------------------------------------------------------------------ */
 
+/*
+ * Hidden layers collapse to height 0, with no cap on how tall a visible layer can be. Visible layers keep
+ * overflow visible, so the margins of their content collapse with neighboring layers as in normal flow.
+ * visibility: hidden takes a collapsed layer out of the tab order and the accessibility tree; it switches after the
+ * collapse finishes and immediately on expand.
+ */
 .progressive-depth-understory[data-pd-visible="false"],
 .progressive-depth-mycelium[data-pd-visible="false"] {
-  max-height: 0;
+  height: 0;
   opacity: 0;
   overflow: hidden;
+  visibility: hidden;
   margin: 0;
   padding-top: 0;
   padding-bottom: 0;
   transition:
-    max-height var(--pd-transition-duration) var(--pd-transition-easing),
-    opacity var(--pd-transition-duration) var(--pd-transition-easing);
+    height var(--pd-transition-duration) var(--pd-transition-easing),
+    opacity var(--pd-transition-duration) var(--pd-transition-easing),
+    visibility 0s linear var(--pd-transition-duration);
 }
 
 .progressive-depth-understory[data-pd-visible="true"],
 .progressive-depth-mycelium[data-pd-visible="true"] {
-  max-height: 5000px;
+  height: auto;
   opacity: 1;
+  visibility: visible;
   transition:
-    max-height var(--pd-transition-duration) var(--pd-transition-easing),
-    opacity var(--pd-transition-duration) var(--pd-transition-easing);
+    height var(--pd-transition-duration) var(--pd-transition-easing),
+    opacity var(--pd-transition-duration) var(--pd-transition-easing),
+    visibility 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressive-depth-understory,
+  .progressive-depth-mycelium {
+    transition: none !important;
+  }
 }
 
 /* ------------------------------------------------------------------ */
