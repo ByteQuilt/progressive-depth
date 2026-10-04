@@ -1,4 +1,4 @@
-import { ProgressiveDepthProvider, Canopy, Understory, Mycelium } from "@bytequilt/progressive-depth";
+import { Canopy, Mycelium, ProgressiveDepthProvider, Understory } from "@bytequilt/progressive-depth";
 import "@bytequilt/progressive-depth/styles.css";
 import "./index.css";
 

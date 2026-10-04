@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useMemo } from "react";
-import { ProgressiveDepthContext, VisibilityMapContext } from "../core/context";
+import { useCallback, useMemo, useState } from "react";
 import { DEFAULT_VISIBILITY_MAP } from "../core/constants";
+import { ProgressiveDepthContext, VisibilityMapContext } from "../core/context";
 import type { ProviderPrimitiveProps, ReadingMode } from "../core/types";
 
 /**

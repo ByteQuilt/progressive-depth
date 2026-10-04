@@ -1,6 +1,6 @@
 import { createContext } from "react";
-import type { ProgressiveDepthContextValue, VisibilityMap } from "./types";
 import { DEFAULT_VISIBILITY_MAP } from "./constants";
+import type { ProgressiveDepthContextValue, VisibilityMap } from "./types";
 
 /**
  * Context for sharing reading mode state across layer components.

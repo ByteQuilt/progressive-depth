@@ -1,8 +1,7 @@
-import React from "react";
+import type { ProgressiveDepthProviderProps } from "../core/types";
 import { Provider } from "../primitives/Provider";
 import { Root } from "../primitives/Root";
 import { ReadingModeToggle } from "./ReadingModeToggle";
-import type { ProgressiveDepthProviderProps } from "../core/types";
 
 /**
  * Provider component for Progressive Depth.

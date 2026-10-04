@@ -1,6 +1,5 @@
-import React from "react";
-import { Layer } from "../primitives/Layer";
 import type { LayerProps } from "../core/types";
+import { Layer } from "../primitives/Layer";
 
 /**
  * Canopy layer. The 10-foot view.

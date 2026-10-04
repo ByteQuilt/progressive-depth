@@ -1,4 +1,3 @@
-import React from "react";
 import { useToggle } from "../core/hooks/useToggle";
 import type { TogglePrimitiveProps } from "../core/types";
 

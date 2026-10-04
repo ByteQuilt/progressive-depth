@@ -1,4 +1,4 @@
-import type { ReadingMode, ReadingModeInfo, VisibilityMap, LayerName } from "./types";
+import type { LayerName, ReadingMode, ReadingModeInfo, VisibilityMap } from "./types";
 
 /**
  * The golden ratio. Used as the proportional scaling factor

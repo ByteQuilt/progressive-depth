@@ -1,7 +1,7 @@
 import { useContext, useMemo } from "react";
 import { ProgressiveDepthContext, VisibilityMapContext } from "../context";
+import type { LayerName, LayerVisibilityState, VisibilityMap } from "../types";
 import { resolveLayerVisibility } from "../visibility";
-import type { LayerName, VisibilityMap, LayerVisibilityState } from "../types";
 
 /**
  * Computes visibility state for a given layer based on the current mode.

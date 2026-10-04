@@ -1,4 +1,3 @@
-import React from "react";
 import { useProgressiveDepth } from "../core/hooks/useProgressiveDepth";
 import type { RootPrimitiveProps } from "../core/types";
 

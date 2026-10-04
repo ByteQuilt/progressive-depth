@@ -1,4 +1,4 @@
-import type { ReactNode, HTMLAttributes, KeyboardEvent } from "react";
+import type { HTMLAttributes, KeyboardEvent, ReactNode } from "react";
 
 // ---- Mode Types ----
 

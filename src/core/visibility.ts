@@ -1,5 +1,5 @@
-import type { ReadingMode, LayerName, VisibilityMap, LayerVisibilityState } from "./types";
 import { DEFAULT_VISIBILITY_MAP } from "./constants";
+import type { LayerName, LayerVisibilityState, ReadingMode, VisibilityMap } from "./types";
 
 /**
  * Determines if a layer is visible in a given mode.

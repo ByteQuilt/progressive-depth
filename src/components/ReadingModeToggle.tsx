@@ -1,6 +1,5 @@
-import React from "react";
-import { useToggle } from "../core/hooks/useToggle";
 import { DEFAULT_MODE_LABELS } from "../core/constants";
+import { useToggle } from "../core/hooks/useToggle";
 import type { ReadingModeToggleProps } from "../core/types";
 
 /**

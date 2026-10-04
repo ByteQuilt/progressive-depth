@@ -1,4 +1,3 @@
-import React from "react";
 import { useLayerVisibility } from "../core/hooks/useLayerVisibility";
 import type { LayerPrimitiveProps } from "../core/types";
 

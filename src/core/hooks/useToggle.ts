@@ -1,7 +1,7 @@
-import { useContext, useCallback, useMemo, type KeyboardEvent } from "react";
+import { type KeyboardEvent, useCallback, useContext, useMemo } from "react";
+import { DEFAULT_MODE_LABELS, MODE_ORDER } from "../constants";
 import { ProgressiveDepthContext } from "../context";
-import { MODE_ORDER, DEFAULT_MODE_LABELS } from "../constants";
-import type { ReadingMode, UseToggleReturn, UseToggleOptions } from "../types";
+import type { ReadingMode, UseToggleOptions, UseToggleReturn } from "../types";
 
 /** Arrow keys move the selection, as the ARIA radio group pattern expects. */
 const KEY_STEPS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
