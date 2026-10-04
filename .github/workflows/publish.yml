@@ -51,7 +51,8 @@ jobs:
       - name: Authenticate to GitHub Packages
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
 
-      # A re-run skips any registry that already has this version.
+      # A re-run skips any registry that already has this version. Each registry is attempted even when the other
+      # fails, so one registry's problem cannot hold back the other; the step still fails if either did.
       - name: Publish
         run: |
           spec="$(node -p 'const p = require("./package.json"); `${p.name}@${p.version}`')"
@@ -62,5 +63,7 @@ jobs:
               npm publish --access public --registry="$1" --@bytequilt:registry="$1"
             fi
           }
-          publish https://registry.npmjs.org/
-          publish https://npm.pkg.github.com/
+          status=0
+          publish https://registry.npmjs.org/ || { echo "::error::Publishing $spec to npmjs failed"; status=1; }
+          publish https://npm.pkg.github.com/ || { echo "::error::Publishing $spec to GitHub Packages failed"; status=1; }
+          exit $status
