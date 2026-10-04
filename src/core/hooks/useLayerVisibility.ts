@@ -1,7 +1,7 @@
-import { useContext, useMemo } from 'react';
-import { ProgressiveDepthContext, VisibilityMapContext } from '../context';
-import { resolveLayerVisibility } from '../visibility';
-import type { LayerName, VisibilityMap, LayerVisibilityState } from '../types';
+import { useContext, useMemo } from "react";
+import { ProgressiveDepthContext, VisibilityMapContext } from "../context";
+import type { LayerName, LayerVisibilityState, VisibilityMap } from "../types";
+import { resolveLayerVisibility } from "../visibility";
 
 /**
  * Computes visibility state for a given layer based on the current mode.
@@ -39,16 +39,10 @@ import type { LayerName, VisibilityMap, LayerVisibilityState } from '../types';
  * }
  * ```
  */
-export function useLayerVisibility(
-  layer: LayerName,
-  visibilityMapOverride?: VisibilityMap
-): LayerVisibilityState {
+export function useLayerVisibility(layer: LayerName, visibilityMapOverride?: VisibilityMap): LayerVisibilityState {
   const { mode } = useContext(ProgressiveDepthContext);
   const contextVisibilityMap = useContext(VisibilityMapContext);
   const visibilityMap = visibilityMapOverride ?? contextVisibilityMap;
 
-  return useMemo(
-    () => resolveLayerVisibility(layer, mode, visibilityMap),
-    [layer, mode, visibilityMap]
-  );
+  return useMemo(() => resolveLayerVisibility(layer, mode, visibilityMap), [layer, mode, visibilityMap]);
 }

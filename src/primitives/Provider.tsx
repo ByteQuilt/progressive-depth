@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { ProgressiveDepthContext, VisibilityMapContext } from '../core/context';
-import { DEFAULT_VISIBILITY_MAP } from '../core/constants';
-import type { ProviderPrimitiveProps, ReadingMode } from '../core/types';
+import { useCallback, useMemo, useState } from "react";
+import { DEFAULT_VISIBILITY_MAP } from "../core/constants";
+import { ProgressiveDepthContext, VisibilityMapContext } from "../core/context";
+import type { ProviderPrimitiveProps, ReadingMode } from "../core/types";
 
 /**
  * Headless provider primitive. Provides mode state to descendants
@@ -26,7 +26,7 @@ import type { ProviderPrimitiveProps, ReadingMode } from '../core/types';
  */
 export function Provider({
   children,
-  defaultMode = 'deep',
+  defaultMode = "deep",
   mode: controlledMode,
   onModeChange,
   visibilityMap = DEFAULT_VISIBILITY_MAP,
@@ -43,16 +43,14 @@ export function Provider({
       }
       onModeChange?.(newMode);
     },
-    [isControlled, onModeChange]
+    [isControlled, onModeChange],
   );
 
   const contextValue = useMemo(() => ({ mode, setMode }), [mode, setMode]);
 
   return (
     <ProgressiveDepthContext.Provider value={contextValue}>
-      <VisibilityMapContext.Provider value={visibilityMap}>
-        {children}
-      </VisibilityMapContext.Provider>
+      <VisibilityMapContext.Provider value={visibilityMap}>{children}</VisibilityMapContext.Provider>
     </ProgressiveDepthContext.Provider>
   );
 }

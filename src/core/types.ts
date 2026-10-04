@@ -1,4 +1,4 @@
-import type { ReactNode, HTMLAttributes, KeyboardEvent } from 'react';
+import type { HTMLAttributes, KeyboardEvent, ReactNode } from "react";
 
 // ---- Mode Types ----
 
@@ -9,7 +9,7 @@ import type { ReactNode, HTMLAttributes, KeyboardEvent } from 'react';
  * - `standard`: Show claims and context (read mode)
  * - `deep`: Show everything (deep dive mode)
  */
-export type ReadingMode = 'canopy' | 'standard' | 'deep';
+export type ReadingMode = "canopy" | "standard" | "deep";
 
 /**
  * Labels and descriptions for each reading mode.
@@ -22,7 +22,7 @@ export interface ReadingModeInfo {
 // ---- Visibility Types ----
 
 /** The named content layers. */
-export type LayerName = 'canopy' | 'understory' | 'mycelium';
+export type LayerName = "canopy" | "understory" | "mycelium";
 
 /**
  * Maps each reading mode to the set of layers visible in that mode.
@@ -43,12 +43,12 @@ export interface LayerVisibilityState {
   layer: LayerName;
   /** Data attributes to spread onto the layer element. */
   dataAttributes: {
-    'data-pd-layer': LayerName;
-    'data-pd-visible': boolean;
+    "data-pd-layer": LayerName;
+    "data-pd-visible": boolean;
   };
   /** Accessibility attributes to spread onto the layer element. */
   ariaAttributes: {
-    'aria-hidden': boolean;
+    "aria-hidden": boolean;
   };
 }
 
@@ -78,21 +78,21 @@ export interface UseToggleReturn {
   modes: ReadingMode[];
   /** Get accessible props for a specific mode button. */
   getModeProps: (targetMode: ReadingMode) => {
-    role: 'radio';
-    'aria-checked': boolean;
-    'aria-label': string;
+    role: "radio";
+    "aria-checked": boolean;
+    "aria-label": string;
     /** 0 for the checked mode, -1 for the others (roving tabindex). */
     tabIndex: 0 | -1;
-    'data-pd-mode': ReadingMode;
-    'data-pd-active': boolean;
+    "data-pd-mode": ReadingMode;
+    "data-pd-active": boolean;
     onClick: () => void;
     /** Arrow, Home, and End keys move the selection and focus within the radio group. */
     onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
   };
   /** Get accessible props for the toggle container. */
   getToggleProps: () => {
-    role: 'radiogroup';
-    'aria-label': string;
+    role: "radiogroup";
+    "aria-label": string;
   };
 }
 

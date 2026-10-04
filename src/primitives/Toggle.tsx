@@ -1,6 +1,5 @@
-import React from 'react';
-import { useToggle } from '../core/hooks/useToggle';
-import type { TogglePrimitiveProps } from '../core/types';
+import { useToggle } from "../core/hooks/useToggle";
+import type { TogglePrimitiveProps } from "../core/types";
 
 /**
  * Headless toggle primitive using children-as-function pattern.

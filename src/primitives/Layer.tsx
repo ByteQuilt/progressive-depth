@@ -1,6 +1,5 @@
-import React from 'react';
-import { useLayerVisibility } from '../core/hooks/useLayerVisibility';
-import type { LayerPrimitiveProps } from '../core/types';
+import { useLayerVisibility } from "../core/hooks/useLayerVisibility";
+import type { LayerPrimitiveProps } from "../core/types";
 
 /**
  * Generic layer primitive. Resolves visibility based on its `layer` prop
@@ -28,14 +27,7 @@ import type { LayerPrimitiveProps } from '../core/types';
  * )} />
  * ```
  */
-export function Layer({
-  children,
-  layer,
-  render,
-  as: Component = 'div',
-  className,
-  ...rest
-}: LayerPrimitiveProps) {
+export function Layer({ children, layer, render, as: Component = "div", className, ...rest }: LayerPrimitiveProps) {
   const visibilityState = useLayerVisibility(layer);
 
   if (render) {
@@ -45,12 +37,7 @@ export function Layer({
   const { dataAttributes, ariaAttributes } = visibilityState;
 
   return (
-    <Component
-      {...rest}
-      {...dataAttributes}
-      {...ariaAttributes}
-      className={`progressive-depth-${layer} ${className ?? ''}`.trim()}
-    >
+    <Component {...rest} {...dataAttributes} {...ariaAttributes} className={`progressive-depth-${layer} ${className ?? ""}`.trim()}>
       {children}
     </Component>
   );

@@ -14,23 +14,25 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    env:
-      # The tracked .npmrc reads this for GitHub Packages, and npm fails on unset variables.
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
+      # Installs the pnpm version pinned in package.json#packageManager.
+      - uses: pnpm/action-setup@v4
 
       # Node 24 ships npm 11.5.1 or later, which trusted publishing requires.
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
 
-      - run: pnpm install
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
       - run: pnpm run build
+      - run: pnpm run check:package
+
+      # GitHub Packages needs a token. npmjs needs none: trusted publishing authenticates through OIDC.
+      - name: Authenticate to GitHub Packages
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
 
       # A re-run skips any registry that already has this version.
       - name: Publish

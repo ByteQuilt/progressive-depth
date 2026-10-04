@@ -1,0 +1,7 @@
+# Bulk rewrites that carry no behavior change. Use with:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# style: format the repository with Biome
+c46acb0e6e68ca98d498c01b491d4aadf122b3af
+# refactor: apply Biome's mechanical fixes
+2c397b614c691642a2383d07833dbd08995ac01e

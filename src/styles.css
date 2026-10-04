@@ -112,13 +112,6 @@
     visibility 0s;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .progressive-depth-understory,
-  .progressive-depth-mycelium {
-    transition: none !important;
-  }
-}
-
 /* ------------------------------------------------------------------ */
 /*  Toggle                                                             */
 /* ------------------------------------------------------------------ */
