@@ -1,13 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "bootstrap-sha": "6b0c591ed734b7131ac9d560485fdf77c1dcf8cd",
   "packages": {
     ".": {
       "release-type": "node",
       "package-name": "@bytequilt/progressive-depth",
       "include-component-in-tag": false,
-      "changelog-path": "CHANGELOG.md",
-      "release-as": "1.2.0"
+      "changelog-path": "CHANGELOG.md"
     }
   }
 }
