@@ -1,0 +1,8 @@
+# Runs through the global core.hooksPath shim, so there is no `lefthook install` step.
+# CI (`biome ci`) stays the real gate: this hook can be skipped with LEFTHOOK=0 or --no-verify.
+pre-commit:
+  commands:
+    biome:
+      glob: "*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,json,jsonc,css}"
+      run: pnpm exec biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+      stage_fixed: true
