@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.1](https://github.com/ByteQuilt/progressive-depth/compare/v1.2.0...v1.2.1) (2026-10-04)
+
+
+### Bug Fixes
+
+* mark the package as client code for React Server Components ([#10](https://github.com/ByteQuilt/progressive-depth/issues/10)) ([d7fe70a](https://github.com/ByteQuilt/progressive-depth/commit/d7fe70ad0bb69e0aa9ac3136a4e28b573fad63bb))
+
 ## [1.2.0](https://github.com/ByteQuilt/progressive-depth/compare/v1.1.0...v1.2.0) (2026-10-04)
 
 
