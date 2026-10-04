@@ -63,6 +63,16 @@ If CI fails, you can still publish manually from your local machine:
 ```bash
 npm login                # npmjs account with publish rights on @bytequilt
 pnpm run publish:npmjs   # npmjs only
-pnpm run publish:github  # GitHub Packages only (needs GITHUB_TOKEN with write:packages)
+pnpm run publish:github  # GitHub Packages only (see below)
 pnpm release             # both
 ```
+
+The repository has no `.npmrc`, so contributors can install without any token.
+Publishing to GitHub Packages by hand needs a token with `write:packages` in your user-level `~/.npmrc`:
+
+```ini
+//npm.pkg.github.com/:_authToken=<token>
+```
+
+The first npmjs release has to be published by hand, because trusted publishing can only be configured on a package that already exists.
+Publish it with `pnpm run publish:npmjs`, then follow the one-time setup above.
