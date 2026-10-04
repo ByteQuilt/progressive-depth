@@ -12,11 +12,11 @@ import type { TogglePrimitiveProps } from '../core/types';
  * ```tsx
  * <Toggle>
  *   {({ modes, getModeProps, getToggleProps }) => (
- *     <nav {...getToggleProps()}>
+ *     <div {...getToggleProps()}>
  *       {modes.map(m => (
  *         <button key={m} {...getModeProps(m)}>{m}</button>
  *       ))}
- *     </nav>
+ *     </div>
  *   )}
  * </Toggle>
  * ```

@@ -1,4 +1,4 @@
-import type { ReactNode, HTMLAttributes } from 'react';
+import type { ReactNode, HTMLAttributes, KeyboardEvent } from 'react';
 
 // ---- Mode Types ----
 
@@ -81,9 +81,13 @@ export interface UseToggleReturn {
     role: 'radio';
     'aria-checked': boolean;
     'aria-label': string;
+    /** 0 for the checked mode, -1 for the others (roving tabindex). */
+    tabIndex: 0 | -1;
     'data-pd-mode': ReadingMode;
     'data-pd-active': boolean;
     onClick: () => void;
+    /** Arrow, Home, and End keys move the selection and focus within the radio group. */
+    onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
   };
   /** Get accessible props for the toggle container. */
   getToggleProps: () => {
