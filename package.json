@@ -63,10 +63,7 @@
     "prepublishOnly": "pnpm build",
     "publish:npmjs": "npm publish --access public --registry=https://registry.npmjs.org/ --@bytequilt:registry=https://registry.npmjs.org/",
     "publish:github": "npm publish --registry=https://npm.pkg.github.com/ --@bytequilt:registry=https://npm.pkg.github.com/",
-    "release": "pnpm run publish:npmjs && pnpm run publish:github",
-    "bump:patch": "npm version patch",
-    "bump:minor": "npm version minor",
-    "bump:major": "npm version major"
+    "release": "pnpm run publish:npmjs && pnpm run publish:github"
   },
   "engines": {
     "node": ">=18"

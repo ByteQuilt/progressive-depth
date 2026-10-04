@@ -2,7 +2,7 @@
 
 This guide explains how to release new versions of `@bytequilt/progressive-depth`.
 
-We use GitHub Actions to automatically publish the package when a new Release is created on GitHub.
+Releases are automated with [release-please](https://github.com/googleapis/release-please).
 Every release goes to two registries:
 
 - **npmjs** (public): `npm install @bytequilt/progressive-depth` works with no extra setup.
@@ -18,32 +18,24 @@ Contributors do not need to worry about publishing. Simply:
 
 ## For Maintainers
 
-### 1. Prepare Release
+### 1. Write Conventional Commits
 
-On your local machine, pull the latest `main` branch and bump the version:
+release-please reads commit messages on `main` to choose the next version and write the changelog:
 
-```bash
-git pull origin main
+- `fix:` releases a patch.
+- `feat:` releases a minor version.
+- A `!` after the type, or a `BREAKING CHANGE:` footer, releases a major version.
 
-# Choose the appropriate bump type:
-pnpm bump:patch  # Bug fixes (1.0.0 -> 1.0.1)
-pnpm bump:minor  # Features (1.0.0 -> 1.1.0)
-pnpm bump:major  # Breaking changes (1.0.0 -> 2.0.0)
+Squash merges use the pull request title as the commit message, so the title must follow the same format.
 
-# Push the version commit and tag
-git push --follow-tags
-```
+### 2. Merge the Release Pull Request
 
-### 2. Trigger Publication
+After each push to `main`, the [Release](./.github/workflows/publish.yml) workflow opens or updates a pull request titled `chore(main): release <version>`.
+It bumps `package.json` and adds the new section to `CHANGELOG.md`.
+Never edit `CHANGELOG.md` by hand; change the commit messages instead.
 
-Go to the [Releases page on GitHub](https://github.com/ByteQuilt/progressive-depth/releases) and draft a new release:
-
-1.  Click **Draft a new release**.
-2.  Select the tag you just pushed (e.g., `v1.0.1`).
-3.  Generate release notes.
-4.  Click **Publish release**.
-
-The [Publish Package](./.github/workflows/publish.yml) workflow builds once and publishes that build to both registries.
+Merging the release pull request tags the version and creates the GitHub release.
+The same workflow then runs the tests and package checks, builds once, and publishes that build to both registries.
 npmjs authenticates through [trusted publishing](https://docs.npmjs.com/trusted-publishers), so no npm token is stored, and each version gets a provenance attestation.
 GitHub Packages authenticates with the workflow's `GITHUB_TOKEN`.
 Re-running the workflow skips any registry that already has the version.
@@ -74,5 +66,12 @@ Publishing to GitHub Packages by hand needs a token with `write:packages` in you
 //npm.pkg.github.com/:_authToken=<token>
 ```
 
-The first npmjs release has to be published by hand, because trusted publishing can only be configured on a package that already exists.
-Publish it with `pnpm run publish:npmjs`, then follow the one-time setup above.
+### First npmjs Release
+
+Trusted publishing can only be configured on a package that already exists, so the first npmjs release is published by hand:
+
+1.  Check out the open release pull request's branch, which already has the new version in `package.json`.
+2.  Run `pnpm install --frozen-lockfile`, then `npm login`, then `pnpm run publish:npmjs` (it builds first).
+3.  Follow the one-time setup above to add the trusted publisher.
+4.  Merge the release pull request.
+    The workflow sees the version already on npmjs, skips it, and publishes to GitHub Packages.
