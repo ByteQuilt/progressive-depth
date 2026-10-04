@@ -1,8 +1,8 @@
-import React from 'react';
-import { Provider } from '../primitives/Provider';
-import { Root } from '../primitives/Root';
-import { ReadingModeToggle } from './ReadingModeToggle';
-import type { ProgressiveDepthProviderProps } from '../core/types';
+import React from "react";
+import { Provider } from "../primitives/Provider";
+import { Root } from "../primitives/Root";
+import { ReadingModeToggle } from "./ReadingModeToggle";
+import type { ProgressiveDepthProviderProps } from "../core/types";
 
 /**
  * Provider component for Progressive Depth.
@@ -29,7 +29,7 @@ import type { ProgressiveDepthProviderProps } from '../core/types';
  */
 export function ProgressiveDepthProvider({
   children,
-  defaultMode = 'deep',
+  defaultMode = "deep",
   showToggle = true,
   toggleClassName,
   toggleLabels,
@@ -37,15 +37,9 @@ export function ProgressiveDepthProvider({
   onModeChange,
 }: ProgressiveDepthProviderProps) {
   return (
-    <Provider
-      defaultMode={defaultMode}
-      visibilityMap={visibilityMap}
-      onModeChange={onModeChange}
-    >
+    <Provider defaultMode={defaultMode} visibilityMap={visibilityMap} onModeChange={onModeChange}>
       <Root>
-        {showToggle && (
-          <ReadingModeToggle className={toggleClassName} labels={toggleLabels} />
-        )}
+        {showToggle && <ReadingModeToggle className={toggleClassName} labels={toggleLabels} />}
         {children}
       </Root>
     </Provider>

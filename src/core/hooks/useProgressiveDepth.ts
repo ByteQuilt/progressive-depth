@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { ProgressiveDepthContext } from '../context';
-import type { ProgressiveDepthContextValue } from '../types';
+import { useContext } from "react";
+import { ProgressiveDepthContext } from "../context";
+import type { ProgressiveDepthContextValue } from "../types";
 
 /**
  * Hook to access the current reading mode and setter.

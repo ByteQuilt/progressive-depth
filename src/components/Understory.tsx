@@ -1,6 +1,6 @@
-import React from 'react';
-import { Layer } from '../primitives/Layer';
-import type { LayerProps } from '../core/types';
+import React from "react";
+import { Layer } from "../primitives/Layer";
+import type { LayerProps } from "../core/types";
 
 /**
  * Understory layer. The 5-foot view.

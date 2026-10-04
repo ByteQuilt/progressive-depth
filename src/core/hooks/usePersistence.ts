@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import type { ReadingMode, UsePersistenceOptions } from '../types';
+import { useEffect } from "react";
+import type { ReadingMode, UsePersistenceOptions } from "../types";
 
 /**
  * Optional hook that persists reading mode to storage.
@@ -26,14 +26,8 @@ import type { ReadingMode, UsePersistenceOptions } from '../types';
  * }
  * ```
  */
-export function usePersistence(
-  mode: ReadingMode,
-  options: UsePersistenceOptions = {}
-): void {
-  const {
-    storageKey = 'progressive-depth-mode',
-    storage = typeof window !== 'undefined' ? window.localStorage : undefined,
-  } = options;
+export function usePersistence(mode: ReadingMode, options: UsePersistenceOptions = {}): void {
+  const { storageKey = "progressive-depth-mode", storage = typeof window !== "undefined" ? window.localStorage : undefined } = options;
 
   useEffect(() => {
     if (storage) {
@@ -46,18 +40,13 @@ export function usePersistence(
  * Static helper to read the initial mode from storage.
  * Safe for SSR -- returns undefined when storage is unavailable.
  */
-usePersistence.getInitialMode = function getInitialMode(
-  options: UsePersistenceOptions = {}
-): ReadingMode | undefined {
-  const {
-    storageKey = 'progressive-depth-mode',
-    storage = typeof window !== 'undefined' ? window.localStorage : undefined,
-  } = options;
+usePersistence.getInitialMode = function getInitialMode(options: UsePersistenceOptions = {}): ReadingMode | undefined {
+  const { storageKey = "progressive-depth-mode", storage = typeof window !== "undefined" ? window.localStorage : undefined } = options;
 
   if (!storage) return undefined;
 
   const stored = storage.getItem(storageKey);
-  if (stored === 'canopy' || stored === 'standard' || stored === 'deep') {
+  if (stored === "canopy" || stored === "standard" || stored === "deep") {
     return stored;
   }
   return undefined;

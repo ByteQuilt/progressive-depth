@@ -1,6 +1,6 @@
-import React from 'react';
-import { useProgressiveDepth } from '../core/hooks/useProgressiveDepth';
-import type { RootPrimitiveProps } from '../core/types';
+import React from "react";
+import { useProgressiveDepth } from "../core/hooks/useProgressiveDepth";
+import type { RootPrimitiveProps } from "../core/types";
 
 /**
  * Optional wrapper element that sets data-pd-mode on a DOM node.
@@ -20,20 +20,11 @@ import type { RootPrimitiveProps } from '../core/types';
  * </Provider>
  * ```
  */
-export function Root({
-  children,
-  as: Component = 'div',
-  className,
-  ...rest
-}: RootPrimitiveProps) {
+export function Root({ children, as: Component = "div", className, ...rest }: RootPrimitiveProps) {
   const { mode } = useProgressiveDepth();
 
   return (
-    <Component
-      {...rest}
-      className={`progressive-depth ${className ?? ''}`.trim()}
-      data-pd-mode={mode}
-    >
+    <Component {...rest} className={`progressive-depth ${className ?? ""}`.trim()} data-pd-mode={mode}>
       {children}
     </Component>
   );

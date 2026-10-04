@@ -1,5 +1,5 @@
-import type { ReadingMode, LayerName, VisibilityMap, LayerVisibilityState } from './types';
-import { DEFAULT_VISIBILITY_MAP } from './constants';
+import type { ReadingMode, LayerName, VisibilityMap, LayerVisibilityState } from "./types";
+import { DEFAULT_VISIBILITY_MAP } from "./constants";
 
 /**
  * Determines if a layer is visible in a given mode.
@@ -7,11 +7,7 @@ import { DEFAULT_VISIBILITY_MAP } from './constants';
  * Pure function with no React dependencies. Can be used in SSR,
  * tests, or non-React contexts.
  */
-export function isLayerVisible(
-  layer: LayerName,
-  mode: ReadingMode,
-  visibilityMap: VisibilityMap = DEFAULT_VISIBILITY_MAP
-): boolean {
+export function isLayerVisible(layer: LayerName, mode: ReadingMode, visibilityMap: VisibilityMap = DEFAULT_VISIBILITY_MAP): boolean {
   return visibilityMap[mode]?.includes(layer) ?? false;
 }
 
@@ -21,11 +17,7 @@ export function isLayerVisible(
  *
  * Pure function with no React dependencies.
  */
-export function resolveLayerVisibility(
-  layer: LayerName,
-  mode: ReadingMode,
-  visibilityMap: VisibilityMap = DEFAULT_VISIBILITY_MAP
-): LayerVisibilityState {
+export function resolveLayerVisibility(layer: LayerName, mode: ReadingMode, visibilityMap: VisibilityMap = DEFAULT_VISIBILITY_MAP): LayerVisibilityState {
   const isVisible = isLayerVisible(layer, mode, visibilityMap);
 
   return {
@@ -33,11 +25,11 @@ export function resolveLayerVisibility(
     mode,
     layer,
     dataAttributes: {
-      'data-pd-layer': layer,
-      'data-pd-visible': isVisible,
+      "data-pd-layer": layer,
+      "data-pd-visible": isVisible,
     },
     ariaAttributes: {
-      'aria-hidden': !isVisible,
+      "aria-hidden": !isVisible,
     },
   };
 }

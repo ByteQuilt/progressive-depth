@@ -1,7 +1,7 @@
-import { useContext, useCallback, useMemo, type KeyboardEvent } from 'react';
-import { ProgressiveDepthContext } from '../context';
-import { MODE_ORDER, DEFAULT_MODE_LABELS } from '../constants';
-import type { ReadingMode, UseToggleReturn, UseToggleOptions } from '../types';
+import { useContext, useCallback, useMemo, type KeyboardEvent } from "react";
+import { ProgressiveDepthContext } from "../context";
+import { MODE_ORDER, DEFAULT_MODE_LABELS } from "../constants";
+import type { ReadingMode, UseToggleReturn, UseToggleOptions } from "../types";
 
 /** Arrow keys move the selection, as the ARIA radio group pattern expects. */
 const KEY_STEPS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
@@ -44,10 +44,7 @@ const KEY_STEPS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLe
 export function useToggle(options: UseToggleOptions = {}): UseToggleReturn {
   const { mode, setMode } = useContext(ProgressiveDepthContext);
 
-  const mergedLabels = useMemo(
-    () => ({ ...DEFAULT_MODE_LABELS, ...options.labels }),
-    [options.labels]
-  );
+  const mergedLabels = useMemo(() => ({ ...DEFAULT_MODE_LABELS, ...options.labels }), [options.labels]);
 
   const nextMode = useCallback(() => {
     const currentIndex = MODE_ORDER.indexOf(mode);
@@ -67,8 +64,8 @@ export function useToggle(options: UseToggleOptions = {}): UseToggleReturn {
       const step = KEY_STEPS[event.key];
       let target: ReadingMode | undefined;
       if (step) target = MODE_ORDER[(index + step + MODE_ORDER.length) % MODE_ORDER.length];
-      else if (event.key === 'Home') target = MODE_ORDER[0];
-      else if (event.key === 'End') target = MODE_ORDER[MODE_ORDER.length - 1];
+      else if (event.key === "Home") target = MODE_ORDER[0];
+      else if (event.key === "End") target = MODE_ORDER[MODE_ORDER.length - 1];
       if (!target) return;
 
       event.preventDefault();
@@ -77,30 +74,30 @@ export function useToggle(options: UseToggleOptions = {}): UseToggleReturn {
       const group = event.currentTarget.closest('[role="radiogroup"]');
       group?.querySelector<HTMLElement>(`[data-pd-mode="${target}"]`)?.focus();
     },
-    [mode, setMode]
+    [mode, setMode],
   );
 
   const getModeProps = useCallback(
     (targetMode: ReadingMode) => ({
-      role: 'radio' as const,
-      'aria-checked': targetMode === mode,
-      'aria-label': mergedLabels[targetMode].description,
+      role: "radio" as const,
+      "aria-checked": targetMode === mode,
+      "aria-label": mergedLabels[targetMode].description,
       // Roving tabindex: Tab reaches only the checked mode; arrow keys move between modes.
       tabIndex: targetMode === mode ? (0 as const) : (-1 as const),
-      'data-pd-mode': targetMode,
-      'data-pd-active': targetMode === mode,
+      "data-pd-mode": targetMode,
+      "data-pd-active": targetMode === mode,
       onClick: () => setMode(targetMode),
       onKeyDown: handleKeyDown,
     }),
-    [mode, setMode, mergedLabels, handleKeyDown]
+    [mode, setMode, mergedLabels, handleKeyDown],
   );
 
   const getToggleProps = useCallback(
     () => ({
-      role: 'radiogroup' as const,
-      'aria-label': 'Reading depth',
+      role: "radiogroup" as const,
+      "aria-label": "Reading depth",
     }),
-    []
+    [],
   );
 
   return {

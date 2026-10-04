@@ -1,4 +1,4 @@
-import type { ReadingMode, ReadingModeInfo, VisibilityMap, LayerName } from './types';
+import type { ReadingMode, ReadingModeInfo, VisibilityMap, LayerName } from "./types";
 
 /**
  * The golden ratio. Used as the proportional scaling factor
@@ -9,28 +9,28 @@ export const PHI = 1.618;
 /**
  * Reading modes in display order.
  */
-export const MODE_ORDER: ReadingMode[] = ['canopy', 'standard', 'deep'];
+export const MODE_ORDER: ReadingMode[] = ["canopy", "standard", "deep"];
 
 /**
  * Content layers in display order.
  */
-export const LAYER_ORDER: LayerName[] = ['canopy', 'understory', 'mycelium'];
+export const LAYER_ORDER: LayerName[] = ["canopy", "understory", "mycelium"];
 
 /**
  * Default labels for the reading mode toggle.
  */
 export const DEFAULT_MODE_LABELS: Record<ReadingMode, ReadingModeInfo> = {
   canopy: {
-    label: 'Skim',
-    description: 'Just the key points',
+    label: "Skim",
+    description: "Just the key points",
   },
   standard: {
-    label: 'Read',
-    description: 'Key points + context',
+    label: "Read",
+    description: "Key points + context",
   },
   deep: {
-    label: 'Deep Dive',
-    description: 'The full picture',
+    label: "Deep Dive",
+    description: "The full picture",
   },
 };
 
@@ -43,7 +43,7 @@ export const DEFAULT_MODE_LABELS: Record<ReadingMode, ReadingModeInfo> = {
  * - deep mode: all layers visible
  */
 export const DEFAULT_VISIBILITY_MAP: VisibilityMap = {
-  canopy: ['canopy'],
-  standard: ['canopy', 'understory'],
-  deep: ['canopy', 'understory', 'mycelium'],
+  canopy: ["canopy"],
+  standard: ["canopy", "understory"],
+  deep: ["canopy", "understory", "mycelium"],
 };
