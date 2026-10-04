@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0](https://github.com/ByteQuilt/progressive-depth/compare/v1.1.0...v1.2.0) (2026-10-04)
+
+
+### Bug Fixes
+
+* make the reading toggle and hidden layers accessible ([#3](https://github.com/ByteQuilt/progressive-depth/issues/3)) ([07ee6ed](https://github.com/ByteQuilt/progressive-depth/commit/07ee6edeeec2ca1a05db810fe541c67d27c828b0))
+* resolve CommonJS types correctly and declare package metadata ([#4](https://github.com/ByteQuilt/progressive-depth/issues/4)) ([5c06b00](https://github.com/ByteQuilt/progressive-depth/commit/5c06b00cae7fa6d429bfb2becbc1f737957d1dde))
+* resolve the remaining Biome findings ([2b8246d](https://github.com/ByteQuilt/progressive-depth/commit/2b8246de64bd78a2c409b2238aff4741e2523704))
+
 ## [0.1.0] - 2026-02-09
 
 ### Added
