@@ -58,7 +58,7 @@
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check:package": "publint --strict && attw --pack . --exclude-entrypoints styles.css",
+    "check:package": "publint --strict && attw --pack . --exclude-entrypoints styles.css && node scripts/check-client-directive.mjs",
     "clean": "rm -rf dist",
     "prepublishOnly": "pnpm build",
     "publish:npmjs": "npm publish --access public --registry=https://registry.npmjs.org/ --@bytequilt:registry=https://registry.npmjs.org/",
