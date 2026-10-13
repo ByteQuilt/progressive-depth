@@ -10,7 +10,13 @@ import "@bytequilt/progressive-depth/styles.css";
 
 function BlogPost() {
   return (
-    <ProgressiveDepthProvider>
+    <ProgressiveDepthProvider
+      toggleLabels={{
+        canopy: { label: "Skim", description: "Skim: just the key points" },
+        standard: { label: "Read", description: "Read: key points and context" },
+        deep: { label: "Deep Dive", description: "Deep Dive: the full picture" },
+      }}
+    >
       <h2>Section Title</h2>
       <Canopy>
         <p>The claim. A complete thought in one or two sentences.</p>

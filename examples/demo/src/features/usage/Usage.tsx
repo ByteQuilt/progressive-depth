@@ -30,7 +30,7 @@ export function Usage() {
           </div>
           <div>
             <h3>The same code, running</h3>
-            <p className="use-note">This block uses the built-in toggle and starts in Skim.</p>
+            <p className="use-note">This block's toggle labels are set to Skim, Read and Deep Dive, and it starts in Skim.</p>
             <div className="use-live">
               <ProgressiveDepthProvider
                 defaultMode="canopy"
