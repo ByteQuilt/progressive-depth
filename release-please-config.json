@@ -5,7 +5,26 @@
       "release-type": "node",
       "package-name": "@bytequilt/progressive-depth",
       "include-component-in-tag": false,
-      "changelog-path": "CHANGELOG.md"
+      "changelog-path": "CHANGELOG.md",
+      "exclude-paths": [
+        "examples",
+        "markdoc",
+        ".github",
+        ".git-blame-ignore-revs",
+        ".gitignore",
+        ".release-please-manifest.json",
+        "CHANGELOG.md",
+        "CODE_OF_CONDUCT.md",
+        "CONTRIBUTING.md",
+        "FORMAT-SPEC.md",
+        "PUBLISHING.md",
+        "SECURITY.md",
+        "biome.json",
+        "lefthook.yml",
+        "release-please-config.json",
+        "scripts",
+        "vitest.config.ts"
+      ]
     }
   }
 }
