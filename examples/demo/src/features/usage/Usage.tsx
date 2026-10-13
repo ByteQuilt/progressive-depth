@@ -47,15 +47,20 @@ export function Usage() {
                 </Mycelium>
               </ProgressiveDepthProvider>
             </div>
+          </div>
+        </div>
+
+        <div className="use-grid use-markdoc">
+          <div>
             <h3>Writing in Markdoc</h3>
             <p className="use-note">
               The format maps to Markdoc tags. The <a href="https://github.com/ByteQuilt/progressive-depth/tree/main/markdoc">markdoc folder</a> has the tag
               definitions to copy into your config.
             </p>
-            <pre className="code">
-              <code>{MARKDOC}</code>
-            </pre>
           </div>
+          <pre className="code">
+            <code>{MARKDOC}</code>
+          </pre>
         </div>
       </div>
     </section>

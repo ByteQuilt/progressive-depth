@@ -211,8 +211,17 @@
   color: var(--muted);
 }
 
+.use-markdoc {
+  margin-top: 56px;
+  padding-top: 56px;
+  border-top: 1px solid var(--line);
+}
+
+.use-grid .code:last-child {
+  margin-bottom: 0;
+}
+
 .use-live {
-  margin-bottom: 40px;
   padding: 24px;
   background: #fff;
   border: 1px solid var(--ink);
