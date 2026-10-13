@@ -1,0 +1,22 @@
+:root {
+  --paper: #f5f0e8;
+  --paper-deep: #e9e0d3;
+  --ink: #18233b;
+  --ink-raised: #253653;
+  --muted: #56607a;
+  --muted-on-ink: #b4bfd3;
+  --coral: #ee735e;
+  /* Coral fails contrast as text on paper, so text uses this darker shade. */
+  --coral-text: #a83a25;
+  /* Large headings only need 3:1, and this shade clears it on both paper tones. */
+  --coral-large: #cc4a33;
+  --cobalt: #3158a7;
+  --yellow: #edc34f;
+  --line: rgba(24, 35, 59, 0.22);
+
+  --font-display: "Space Grotesk Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "DM Sans Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --gutter: max(24px, calc((100vw - 1180px) / 2));
+}

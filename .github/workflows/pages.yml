@@ -1,0 +1,60 @@
+name: Pages
+
+# Builds the demo in examples/demo and publishes it to GitHub Pages. The repository's Pages source must be set to
+# "GitHub Actions" (Settings > Pages) before the first run can deploy. The site is served at /progressive-depth/,
+# which is the base path in examples/demo/vite.config.ts.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "examples/demo/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Let a running deploy finish, and keep only the newest queued one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Installs the pnpm version pinned in package.json#packageManager.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      # The demo links to the package in this repository, so build the package first.
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm --dir examples/demo install --frozen-lockfile
+      - run: pnpm --dir examples/demo build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: examples/demo/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

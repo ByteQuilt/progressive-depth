@@ -35,3 +35,9 @@ jobs:
       - run: pnpm build
       # publint and attw check what consumers resolve: exports, types per module system, and package files.
       - run: pnpm run check:package
+
+      # The demo site links to the package built above, so it runs after the root build.
+      - run: pnpm --dir examples/demo install --frozen-lockfile
+      - run: pnpm --dir examples/demo typecheck
+      - run: pnpm --dir examples/demo test
+      - run: pnpm --dir examples/demo build

@@ -2,12 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>demo</title>
+    <meta name="description" content="A live demo of Progressive Depth, a React library that lets readers choose how many layers of a post to read." />
+    <meta name="theme-color" content="#f5f0e8" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <title>Progressive Depth demo</title>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <p style="padding: 2rem; font-family: sans-serif">
+        This demo needs JavaScript to switch reading modes. Progressive Depth is a React library: see
+        <a href="https://github.com/ByteQuilt/progressive-depth">the repository</a> for the README and source.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
