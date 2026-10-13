@@ -26,7 +26,7 @@ export const ARTICLE: Section[] = [
       canopy: ["The canopy states the claim. The understory explains why it holds. The mycelium holds the evidence."],
       understory: ["The understory has to add something the canopy didn't say. If it only rephrases the claim, delete it. One paragraph is usually enough."],
       mycelium: [
-        "The mycelium is the only layer with no length limit. It can run to several paragraphs and include code, images and sources.",
+        "The mycelium is the only layer with real freedom of length. It can run to several paragraphs and include code, images and sources.",
         "As a rough check, each layer should be about 1.6 times as long as the one above it. If the understory is longer than the mycelium, the section probably doesn't need three layers.",
       ],
     },

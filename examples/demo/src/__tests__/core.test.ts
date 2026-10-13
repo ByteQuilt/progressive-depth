@@ -48,10 +48,10 @@ describe("reading", () => {
 });
 
 describe("rules presets", () => {
-  it("cover every mode with valid layers", () => {
+  it("cover every mode with valid layers and keep the canopy, which the package never hides", () => {
     for (const preset of RULES_PRESETS) {
       for (const mode of MODE_ORDER) {
-        expect(preset.map[mode].length).toBeGreaterThan(0);
+        expect(preset.map[mode]).toContain("canopy");
         for (const layer of preset.map[mode]) expect(LAYER_ORDER).toContain(layer);
       }
     }

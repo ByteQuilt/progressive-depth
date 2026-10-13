@@ -216,6 +216,9 @@
   padding: 24px;
   background: #fff;
   border: 1px solid var(--ink);
+}
+
+.use-live .progressive-depth {
   --pd-canopy-color: var(--ink);
   --pd-understory-color: var(--ink);
   --pd-mycelium-color: var(--muted);

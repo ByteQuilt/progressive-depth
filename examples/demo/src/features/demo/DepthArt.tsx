@@ -1,7 +1,5 @@
-import type { LayerName } from "@bytequilt/progressive-depth";
+import { LAYER_ORDER, type LayerName } from "@bytequilt/progressive-depth";
 import { LAYER_TITLES } from "../../core/reading";
-
-const LAYERS: LayerName[] = ["canopy", "understory", "mycelium"];
 
 /** Decorative drawing. One shape per layer; a layer's shape appears when that layer is shown. */
 export function DepthArt({ layers, variant = "stage" }: { layers: LayerName[]; variant?: "hero" | "stage" }) {
@@ -35,7 +33,7 @@ export function DepthArt({ layers, variant = "stage" }: { layers: LayerName[]; v
       </svg>
       <figcaption>
         <ul className="art-legend">
-          {LAYERS.map((layer) => (
+          {LAYER_ORDER.map((layer) => (
             <li key={layer} data-layer={layer} data-shown={shown(layer)}>
               <span className="art-swatch" aria-hidden="true" />
               {LAYER_TITLES[layer]}

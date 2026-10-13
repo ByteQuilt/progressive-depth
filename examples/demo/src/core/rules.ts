@@ -7,7 +7,7 @@ export interface RulesPreset {
   map: VisibilityMap;
 }
 
-/** Visibility maps for the Provider's `visibilityMap` prop. */
+/** Visibility maps for the Provider's `visibilityMap` prop. The package never hides the canopy, so every mode lists it. */
 export const RULES_PRESETS: RulesPreset[] = [
   {
     id: "default",
@@ -22,10 +22,10 @@ export const RULES_PRESETS: RulesPreset[] = [
     map: { canopy: ["canopy"], standard: ["canopy", "mycelium"], deep: ["canopy", "understory", "mycelium"] },
   },
   {
-    id: "one-layer",
-    label: "One layer at a time",
-    note: "Each mode shows a single layer.",
-    map: { canopy: ["canopy"], standard: ["understory"], deep: ["mycelium"] },
+    id: "canopy-plus-one",
+    label: "Canopy plus one layer",
+    note: "Read adds the understory. Deep Dive swaps it for the mycelium.",
+    map: { canopy: ["canopy"], standard: ["canopy", "understory"], deep: ["canopy", "mycelium"] },
   },
 ];
 

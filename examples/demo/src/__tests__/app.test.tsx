@@ -1,7 +1,9 @@
+import { LAYER_ORDER } from "@bytequilt/progressive-depth";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import App from "../App";
+import { RULES_PRESETS } from "../core/rules";
 
 const STORAGE_KEY = "progressive-depth-mode";
 
@@ -74,6 +76,29 @@ describe("App", () => {
     const root = document.getElementById("try") as HTMLElement;
     expect(layerStates(root, "understory")).toEqual(["false", "false", "false"]);
     expect(layerStates(root, "mycelium")).toEqual(["true", "true", "true"]);
+  });
+
+  it("keeps the table, readout and art in step with the rendered article under every layer rule", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    const demo = demoSection();
+    const root = document.getElementById("try") as HTMLElement;
+    const article = root.querySelector(".article") as HTMLElement;
+
+    for (const preset of RULES_PRESETS) {
+      await user.selectOptions(demo.getByLabelText("Layer rules"), preset.id);
+      for (const radio of demo.getAllByRole("radio")) {
+        await user.click(radio);
+        const rendered = LAYER_ORDER.filter((layer) => layerStates(article, layer).every((state) => state === "true"));
+        const row = root.querySelector("tr[aria-current='true']") as HTMLElement;
+        const legend = [...root.querySelectorAll(".art-legend li")];
+
+        expect(rendered).toContain("canopy");
+        expect(LAYER_ORDER.filter((_, i) => row.querySelectorAll("td")[i].getAttribute("data-shown") === "true")).toEqual(rendered);
+        expect(legend.filter((item) => item.getAttribute("data-shown") === "true").map((item) => item.getAttribute("data-layer"))).toEqual(rendered);
+        expect(demo.getByRole("status").textContent).toContain(`${rendered.length} of ${LAYER_ORDER.length} layers`);
+      }
+    }
   });
 
   it("applies the selected theme to the article", async () => {

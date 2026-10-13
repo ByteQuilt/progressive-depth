@@ -3,7 +3,7 @@ import { PHI } from "@bytequilt/progressive-depth";
 const LAYERS = [
   { name: "Canopy", view: "The 10-foot view", text: "The claim, in one or two sentences. A reader who only reads canopies should still follow the argument." },
   { name: "Understory", view: "The 5-foot view", text: "Context and reasoning. It adds something the canopy didn't say, usually in one paragraph." },
-  { name: "Mycelium", view: "The deep dive", text: "Evidence, examples and detail. The only layer with no length limit." },
+  { name: "Mycelium", view: "The deep dive", text: "Evidence, examples and detail. The only layer with real freedom of length." },
 ];
 
 export function Idea() {
