@@ -184,6 +184,10 @@
   background: var(--paper);
 }
 
+.use-intro code {
+  overflow-wrap: anywhere;
+}
+
 .use-intro {
   max-width: 40rem;
   margin: 24px 0 48px;
@@ -261,7 +265,7 @@
   overflow-x: auto;
   background: var(--ink);
   color: var(--paper);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 
@@ -294,6 +298,9 @@
 }
 
 .site-footer a {
+  display: inline-block;
+  min-height: 24px;
+  padding-block: 4px;
   color: var(--ink);
 }
 
@@ -329,7 +336,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .button {
+  .button,
+  .use-live .progressive-depth-toggle-button {
     transition: none;
   }
 

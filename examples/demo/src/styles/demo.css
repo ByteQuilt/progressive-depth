@@ -65,7 +65,7 @@
 
 .depth-card-layers {
   margin-top: auto;
-  font: 0.8rem var(--font-mono);
+  font: 0.875rem / 1.6 var(--font-mono);
 }
 
 .hint {
@@ -93,6 +93,7 @@
 }
 
 .readout {
+  font-size: 0.875rem;
   display: flex;
   flex-wrap: wrap;
   gap: 8px 16px;
@@ -247,7 +248,7 @@
 }
 
 .art-legend li[data-shown="false"] {
-  opacity: 0.55;
+  opacity: 0.7;
 }
 
 .art-swatch {
@@ -279,6 +280,19 @@
   border-top: 1px solid rgba(245, 240, 232, 0.3);
 }
 
+.option {
+  min-width: 0;
+}
+
+.rules-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.rules-scroll:focus-visible {
+  outline-color: var(--yellow);
+}
+
 .option label {
   display: block;
   margin-bottom: 8px;
@@ -290,7 +304,8 @@
 
 .option select {
   width: 100%;
-  max-width: 20rem;
+  min-width: 0;
+  max-width: min(20rem, 100%);
   padding: 10px 12px;
   background: var(--ink-raised);
   border: 1px solid rgba(245, 240, 232, 0.5);
@@ -311,7 +326,7 @@
 .rules-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
 }
 
 .rules-table th,
@@ -323,7 +338,7 @@
 
 .rules-table thead th {
   color: var(--yellow);
-  font: 500 0.7rem var(--font-mono);
+  font: 500 0.75rem / 1.6 var(--font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -347,7 +362,7 @@
   overflow-x: auto;
   background: var(--ink-raised);
   color: var(--paper);
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 

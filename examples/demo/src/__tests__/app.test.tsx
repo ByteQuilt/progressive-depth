@@ -118,8 +118,11 @@ describe("App", () => {
     const live = document.querySelector(".use-live") as HTMLElement;
 
     expect(layerStates(live, "mycelium")).toEqual(["false"]);
-    await user.click(use.getByRole("radio", { name: "Just the key points" }));
-    await user.click(use.getByRole("radio", { name: "The full picture" }));
+    await user.click(use.getByRole("radio", { name: "Skim: just the key points" }));
+    await user.click(use.getByRole("radio", { name: "Read: key points and context" }));
+    expect(layerStates(live, "understory")).toEqual(["true"]);
+    expect(layerStates(live, "mycelium")).toEqual(["false"]);
+    await user.click(use.getByRole("radio", { name: "Deep Dive: the full picture" }));
     expect(layerStates(live, "mycelium")).toEqual(["true"]);
     expect(screen.getAllByRole("radiogroup", { name: "Reading depth" })).toHaveLength(2);
   });
