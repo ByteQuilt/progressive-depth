@@ -47,4 +47,4 @@ src/
 
 ## Publishing
 
-In the repository settings, set Pages to deploy from GitHub Actions. After that, every push to `main` that touches `src/`, `examples/demo/` or the workflow rebuilds and deploys the site.
+In the repository settings, set Pages to deploy from GitHub Actions. After that, [the workflow](../../.github/workflows/pages.yml) rebuilds and deploys the site on pushes to `main` that change the package or the demo. Its `paths` filter lists exactly which files.
