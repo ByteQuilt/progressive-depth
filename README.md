@@ -62,7 +62,7 @@ function BlogPost() {
 
 ### Demo
 
-Check out the [working demo](./examples/demo/README.md) to see a complete React application using the format.
+The [demo site](./examples/demo/README.md) renders a sample post with the package from this repository: the reading modes, a custom visibility map, theming through CSS custom properties, and saving the reader's choice. Once GitHub Pages is enabled for the repository, it is served at <https://bytequilt.github.io/progressive-depth/>.
 
 ### Markdoc Tags
 

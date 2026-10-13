@@ -1,0 +1,384 @@
+.demo-section {
+  padding: 96px 0;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.demo-section .section-label {
+  color: var(--yellow);
+}
+
+.demo-section h2 em {
+  color: var(--coral);
+}
+
+.demo-intro {
+  max-width: 40rem;
+  margin: 24px 0 40px;
+  color: var(--muted-on-ink);
+}
+
+/* Depth picker */
+
+.depth-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.depth-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-height: 130px;
+  padding: 18px;
+  background: var(--ink-raised);
+  border: 1px solid rgba(245, 240, 232, 0.35);
+  color: var(--muted-on-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.depth-card:hover {
+  border-color: var(--paper);
+}
+
+.depth-card[aria-checked="true"] {
+  background: #304466;
+  border-color: var(--coral);
+  color: var(--paper);
+}
+
+.depth-card:focus-visible {
+  outline-color: var(--yellow);
+}
+
+.depth-card strong {
+  font: 500 1.6rem var(--font-display);
+  letter-spacing: -0.04em;
+}
+
+.depth-card-layers {
+  margin-top: auto;
+  font: 0.8rem var(--font-mono);
+}
+
+.hint {
+  margin: 12px 0 40px;
+  color: var(--muted-on-ink);
+  font-size: 0.875rem;
+}
+
+/* Stage: art beside the article */
+
+.demo-stage {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.stage-art {
+  position: sticky;
+  top: 24px;
+}
+
+.stage-body {
+  min-width: 0;
+}
+
+.readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 0 0 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.3);
+  color: var(--muted-on-ink);
+}
+
+.readout strong {
+  color: var(--yellow);
+  font-weight: 500;
+}
+
+.article {
+  padding: 32px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.article section + section {
+  margin-top: 40px;
+}
+
+.article h3 {
+  margin-bottom: 12px;
+  font-size: 1.7rem;
+}
+
+.article p {
+  margin: 0 0 12px;
+}
+
+/* Drawing */
+
+.depth-art {
+  --art-stroke: var(--ink);
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+}
+
+.depth-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.depth-art-hero {
+  background: var(--coral);
+  border-color: var(--ink);
+  box-shadow: 14px 14px 0 var(--cobalt);
+}
+
+.depth-art-stage {
+  --art-stroke: var(--paper);
+  background: var(--ink-raised);
+  border-color: rgba(245, 240, 232, 0.5);
+}
+
+.art-line,
+.art-layer,
+.art-notes path,
+.art-detail path {
+  fill: none;
+  stroke: var(--art-stroke);
+  stroke-width: 1.4;
+}
+
+.art-line {
+  stroke-width: 2;
+}
+
+.art-thread {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 4;
+  opacity: 0.85;
+  mix-blend-mode: overlay;
+}
+
+.art-layer {
+  opacity: 0;
+  transform-origin: center;
+  transition:
+    opacity 0.5s,
+    transform 0.6s;
+}
+
+.art-layer[data-shown="true"] {
+  opacity: 1;
+}
+
+.art-canopy {
+  fill: var(--cobalt);
+  transform: scale(0.84);
+}
+
+.art-understory {
+  fill: var(--yellow);
+  transform: scale(0.68);
+}
+
+.art-mycelium {
+  fill: var(--coral);
+  transform: scale(0.5);
+}
+
+.art-notes circle {
+  fill: var(--coral);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.art-detail path {
+  stroke-width: 2;
+}
+
+.art-detail circle {
+  fill: var(--ink);
+}
+
+.depth-art figcaption {
+  padding: 14px 16px;
+  border-top: 1px solid currentColor;
+}
+
+.depth-art-hero figcaption {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.depth-art-stage figcaption {
+  color: var(--paper);
+}
+
+.art-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.art-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.art-legend li[data-shown="false"] {
+  opacity: 0.55;
+}
+
+.art-swatch {
+  width: 12px;
+  height: 12px;
+  border: 1px solid currentColor;
+}
+
+.art-legend [data-layer="canopy"] .art-swatch {
+  background: var(--cobalt);
+}
+
+.art-legend [data-layer="understory"] .art-swatch {
+  background: var(--yellow);
+}
+
+.art-legend [data-layer="mycelium"] .art-swatch {
+  background: var(--coral);
+}
+
+/* Options: layer rules and theme */
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(245, 240, 232, 0.3);
+}
+
+.option label {
+  display: block;
+  margin-bottom: 8px;
+  font: 500 0.75rem var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.option select {
+  width: 100%;
+  max-width: 20rem;
+  padding: 10px 12px;
+  background: var(--ink-raised);
+  border: 1px solid rgba(245, 240, 232, 0.5);
+  color: var(--paper);
+  font: inherit;
+}
+
+.option select:focus-visible {
+  outline-color: var(--yellow);
+}
+
+.option > p {
+  margin: 12px 0 16px;
+  color: var(--muted-on-ink);
+  font-size: 0.9rem;
+}
+
+.rules-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.rules-table th,
+.rules-table td {
+  padding: 8px 10px;
+  border: 1px solid rgba(245, 240, 232, 0.3);
+  text-align: left;
+}
+
+.rules-table thead th {
+  color: var(--yellow);
+  font: 500 0.7rem var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rules-table td[data-shown="false"] {
+  color: var(--muted-on-ink);
+}
+
+.rules-table tr[aria-current="true"] {
+  background: #304466;
+}
+
+.rules-table tr[aria-current="true"] th[scope="row"]::after {
+  content: " (now)";
+  color: var(--yellow);
+}
+
+.vars {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  background: var(--ink-raised);
+  color: var(--paper);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 800px) {
+  .demo-section {
+    padding: 64px 0;
+  }
+
+  .depth-picker,
+  .demo-stage,
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-stage {
+    gap: 24px;
+  }
+
+  .stage-art {
+    position: static;
+    max-width: 280px;
+  }
+
+  .article {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .depth-card,
+  .art-layer {
+    transition: none;
+  }
+}
