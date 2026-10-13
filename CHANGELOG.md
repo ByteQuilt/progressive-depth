@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.2](https://github.com/ByteQuilt/progressive-depth/compare/v1.2.1...v1.2.2) (2026-10-13)
+
+
+### Bug Fixes
+
+* **demo:** give Markdoc its own usage row ([#14](https://github.com/ByteQuilt/progressive-depth/issues/14)) ([30f6b4d](https://github.com/ByteQuilt/progressive-depth/commit/30f6b4dc66df9f9a555e95e82727d22a100f2d4e))
+
 ## [1.2.1](https://github.com/ByteQuilt/progressive-depth/compare/v1.2.0...v1.2.1) (2026-10-04)
 
 
