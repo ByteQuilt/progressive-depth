@@ -30,9 +30,16 @@ export function Usage() {
           </div>
           <div>
             <h3>The same code, running</h3>
-            <p className="use-note">This block uses the built-in toggle with its default labels and starts in Skim.</p>
+            <p className="use-note">This block's toggle labels are set to Skim, Read and Deep Dive, and it starts in Skim.</p>
             <div className="use-live">
-              <ProgressiveDepthProvider defaultMode="canopy">
+              <ProgressiveDepthProvider
+                defaultMode="canopy"
+                toggleLabels={{
+                  canopy: { label: "Skim", description: "Skim: just the key points" },
+                  standard: { label: "Read", description: "Read: key points and context" },
+                  deep: { label: "Deep Dive", description: "Deep Dive: the full picture" },
+                }}
+              >
                 <h4>{SAMPLE.heading}</h4>
                 <Canopy>
                   <p>{SAMPLE.layers.canopy[0]}</p>

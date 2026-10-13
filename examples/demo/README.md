@@ -11,7 +11,7 @@ When Pages is enabled for the repository, the site is published by [`.github/wor
 - **Visibility maps.** The Layer rules menu passes a different `visibilityMap` to the provider, and the table below it shows what each mode then displays.
 - **Theming.** The Theme menu sets a few `--pd-*` custom properties on the article.
 - **Persistence.** `usePersistence` saves the chosen mode in `localStorage` and restores it on the next visit. If the browser blocks storage, the demo skips persistence.
-- **The built-in toggle.** The Use it section renders the provider's own toggle next to the code that produces it.
+- **The built-in toggle.** The Use it section renders the provider's own toggle next to the code that produces it. The running copy sets `toggleLabels` so each button's accessible name starts with its visible label (Skim, Read, Deep Dive); the library defaults don't.
 
 ## Run it
 
