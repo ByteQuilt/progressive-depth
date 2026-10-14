@@ -71,6 +71,7 @@
 
 .hero h1 {
   margin-bottom: 28px;
+  overflow-wrap: anywhere;
 }
 
 .hero-intro {
