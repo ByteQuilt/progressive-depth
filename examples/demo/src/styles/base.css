@@ -5,8 +5,15 @@
 }
 
 html {
+  color-scheme: light;
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: 72px;
+  accent-color: var(--coral);
+  caret-color: var(--coral);
+  /* Browser chrome the page does not draw still carries the palette. */
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--ink) 50%, transparent) transparent;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -15,11 +22,16 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.65;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
   color: inherit;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
 }
 
 h1,
@@ -27,22 +39,26 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.04em;
+  font-weight: 400;
   margin: 0;
+  text-wrap: balance;
 }
 
 h1,
 h2 {
-  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  font-size: clamp(2.8rem, 7vw, 5.25rem);
   line-height: 0.98;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.02em;
 }
 
 h1 em,
 h2 em {
-  color: var(--coral-large);
-  font-style: normal;
+  color: var(--em);
+  font-style: italic;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 code,
@@ -56,8 +72,14 @@ pre {
 }
 
 :focus-visible {
-  outline: 3px solid var(--cobalt);
+  outline: 2px solid var(--cobalt);
   outline-offset: 3px;
+}
+
+[data-tone="dark"] :focus-visible,
+[data-tone="cobalt"] :focus-visible,
+html[data-tone="dark"] .site-header :focus-visible {
+  outline-color: var(--yellow);
 }
 
 .wrap {
@@ -79,7 +101,7 @@ pre {
   position: absolute;
   left: 16px;
   top: -64px;
-  z-index: 20;
+  z-index: 60;
   padding: 12px 16px;
   background: var(--ink);
   color: var(--paper);
@@ -89,25 +111,96 @@ pre {
   top: 12px;
 }
 
-.section-label,
-.eyebrow,
-.readout,
-.art-legend,
-.site-footer,
-.layer-view {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+/* Shared controls */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--inv);
+  font: 600 0.875rem var(--font-body);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition:
+    transform 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out);
 }
 
-.section-label {
-  margin: 0 0 24px;
-  color: var(--cobalt);
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -12px rgba(8, 14, 28, 0.55);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  transition: text-decoration-color 0.3s;
+}
+
+.text-link:hover {
+  text-decoration-color: currentColor;
+}
+
+.install {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  padding: 4px 4px 4px 18px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--fg) 7%, transparent);
+  font-size: 0.8125rem;
+}
+
+.install code {
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.install-copy {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--fg) 12%, transparent);
+  color: inherit;
+  font: 600 0.8125rem var(--font-body);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.install-copy:hover,
+.install[data-copied="true"] .install-copy {
+  background: color-mix(in oklab, var(--fg) 22%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .button,
+  .install-copy,
+  .text-link {
+    transition: none;
+  }
+
+  .button:hover {
+    transform: none;
   }
 }

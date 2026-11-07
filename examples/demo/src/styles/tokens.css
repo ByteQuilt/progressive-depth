@@ -1,22 +1,79 @@
 :root {
   --paper: #f5f0e8;
   --paper-deep: #e9e0d3;
+  --sheet: #fbf8f2;
   --ink: #18233b;
-  --ink-raised: #253653;
+  --ink-raised: #202e4d;
+  --ink-deep: #0f182b;
   --muted: #56607a;
   --muted-on-ink: #b4bfd3;
+  --muted-on-cobalt: #dce4f4;
   --coral: #ee735e;
-  /* Coral fails contrast as text on paper, so text uses this darker shade. */
+  /* Coral fails contrast as text on paper, so small text uses this darker shade. */
   --coral-text: #a83a25;
-  /* Large headings only need 3:1, and this shade clears it on both paper tones. */
+  /* Display headings only need 3:1, and this shade clears it on both paper tones. */
   --coral-large: #cc4a33;
   --cobalt: #3158a7;
+  /* The canopy colour lightened so it holds 3:1 as a graphic on ink. */
+  --cobalt-on-ink: #86a2e0;
   --yellow: #edc34f;
-  --line: rgba(24, 35, 59, 0.22);
 
-  --font-display: "Space Grotesk Variable", "Helvetica Neue", Arial, sans-serif;
+  --line: rgba(24, 35, 59, 0.18);
+  --line-strong: rgba(24, 35, 59, 0.4);
+  --line-on-dark: rgba(245, 240, 232, 0.2);
+  --line-strong-on-dark: rgba(245, 240, 232, 0.45);
+
+  --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --font-body: "DM Sans Variable", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  --gutter: max(24px, calc((100vw - 1180px) / 2));
+  /* Exponential ease-out. Every authored motion on the page uses it. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --gutter: max(24px, calc((100vw - 1240px) / 2));
+}
+
+/*
+ * Every section declares its tone, and the scroll engine copies the tone under the header to <html>.
+ * Components read these roles, never the raw palette, so one rule recolours a whole section.
+ */
+[data-tone="light"] {
+  --fg: var(--ink);
+  --fg-muted: var(--muted);
+  --inv: var(--paper);
+  --rule: var(--line);
+  --rule-strong: var(--line-strong);
+  --em: var(--coral-large);
+  --accent-text: var(--coral-text);
+  --tone-bg: var(--paper);
+  --layer-canopy: var(--cobalt);
+  --layer-understory: var(--yellow);
+  --layer-mycelium: var(--coral);
+  /* The package reads these on every layer below, so they are set here where the tone roles resolve. */
+  --pd-mycelium-color: var(--fg-muted);
+  --pd-mycelium-border-color: var(--rule-strong);
+}
+
+[data-tone="dark"],
+[data-tone="cobalt"] {
+  --fg: var(--paper);
+  --fg-muted: var(--muted-on-ink);
+  --inv: var(--ink);
+  --rule: var(--line-on-dark);
+  --rule-strong: var(--line-strong-on-dark);
+  --em: var(--yellow);
+  --accent-text: var(--yellow);
+  --tone-bg: var(--ink);
+  --layer-canopy: var(--cobalt-on-ink);
+  --layer-understory: var(--yellow);
+  --layer-mycelium: var(--coral);
+  --pd-mycelium-color: var(--fg-muted);
+  --pd-mycelium-border-color: var(--rule-strong);
+}
+
+[data-tone="cobalt"] {
+  --fg-muted: var(--muted-on-cobalt);
+  --tone-bg: var(--cobalt);
+  --layer-canopy: var(--paper);
+  --pd-mycelium-color: var(--fg-muted);
 }

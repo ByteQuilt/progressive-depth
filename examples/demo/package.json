@@ -13,8 +13,8 @@
   "dependencies": {
     "@bytequilt/progressive-depth": "link:../..",
     "@fontsource-variable/dm-sans": "^5.2.8",
-    "@fontsource-variable/space-grotesk": "^5.2.10",
     "@fontsource/dm-mono": "^5.2.7",
+    "@fontsource/instrument-serif": "^5.3.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

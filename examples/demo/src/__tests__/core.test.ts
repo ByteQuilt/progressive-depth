@@ -1,6 +1,8 @@
 import { DEFAULT_VISIBILITY_MAP, LAYER_ORDER, MODE_ORDER } from "@bytequilt/progressive-depth";
 import { describe, expect, it } from "vitest";
 import { ARTICLE } from "../content/article";
+import { depthLink, modeFromSearch } from "../core/depth";
+import { pinnedProgress, RING_RADII, stageAt, TONE_FLIP } from "../core/descent";
 import { countLayerWords, countWords, describeLayers, formatReadingTime, modeLabels, visibleLayers } from "../core/reading";
 import { findRules, RULES_PRESETS } from "../core/rules";
 import { getBrowserStorage } from "../core/storage";
@@ -89,6 +91,85 @@ describe("getBrowserStorage", () => {
       expect(getBrowserStorage()).toBeUndefined();
     } finally {
       if (original) Object.defineProperty(window, "localStorage", original);
+    }
+  });
+});
+
+describe("descent", () => {
+  const steps = Array.from({ length: 101 }, (_, i) => i / 100);
+
+  it("zooms in one direction only, so the dive never reverses", () => {
+    const zooms = steps.map((p) => stageAt(p).zoom);
+    for (let i = 1; i < zooms.length; i++) expect(zooms[i]).toBeGreaterThanOrEqual(zooms[i - 1]);
+    expect(zooms[0]).toBe(1);
+  });
+
+  it("shows exactly one statement at each resting point and none on top of another", () => {
+    const resting = { canopy: 0, understory: 0.52, mycelium: 1 };
+    expect(stageAt(resting.canopy).acts).toEqual([1, 0, 0]);
+    expect(stageAt(resting.understory).acts).toEqual([0, 1, 0]);
+    expect(stageAt(resting.mycelium).acts).toEqual([0, 0, 1]);
+    for (const p of steps) {
+      const [first, second, third] = stageAt(p).acts;
+      expect(first + second + third).toBeLessThanOrEqual(1.5);
+      // Never two statements fully legible at once.
+      expect([first, second, third].filter((opacity) => opacity > 0.75).length).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it("moves the ground from paper to cobalt to ink, with each statement on its plateau", () => {
+    expect(stageAt(0)).toMatchObject({ paperToCobalt: 0, cobaltToInk: 0, tone: "light" });
+    expect(stageAt(0.52)).toMatchObject({ paperToCobalt: 1, cobaltToInk: 0, tone: "dark" });
+    expect(stageAt(1)).toMatchObject({ paperToCobalt: 1, cobaltToInk: 1, tone: "dark" });
+  });
+
+  it("flips the text tone before the ground is dark enough to need it", () => {
+    expect(stageAt(TONE_FLIP - 0.01).tone).toBe("light");
+    expect(stageAt(TONE_FLIP).tone).toBe("dark");
+    expect(stageAt(TONE_FLIP).paperToCobalt).toBeGreaterThan(0.5);
+  });
+
+  it("scales each ring by the camera zoom times its radius", () => {
+    const stage = stageAt(0.7);
+    for (const [i, scale] of stage.scales.entries()) expect(scale).toBeCloseTo(stage.zoom * RING_RADII[i], 10);
+  });
+
+  it("clamps progress outside the pinned range", () => {
+    expect(stageAt(-3)).toEqual(stageAt(0));
+    expect(stageAt(9)).toEqual(stageAt(1));
+  });
+
+  it("measures pinned progress from the section's top edge", () => {
+    // A 3000px section in a 1000px window pins for 2000px of scroll.
+    expect(pinnedProgress(0, 3000, 1000)).toBe(0);
+    expect(pinnedProgress(-1000, 3000, 1000)).toBe(0.5);
+    expect(pinnedProgress(-2000, 3000, 1000)).toBe(1);
+    expect(pinnedProgress(-2600, 3000, 1000)).toBe(1);
+    expect(pinnedProgress(300, 3000, 1000)).toBe(0);
+    // A section no taller than the window never pins, which is the reduced-motion layout.
+    expect(pinnedProgress(-200, 900, 1000)).toBe(0);
+  });
+});
+
+describe("depth links", () => {
+  it("reads the depth a link asks for", () => {
+    expect(modeFromSearch("?depth=skim")).toBe("canopy");
+    expect(modeFromSearch("?x=1&depth=read")).toBe("standard");
+    expect(modeFromSearch("?depth=deep")).toBe("deep");
+  });
+
+  it("ignores a missing or unknown depth", () => {
+    expect(modeFromSearch("")).toBeUndefined();
+    expect(modeFromSearch("?depth=canopy")).toBeUndefined();
+    expect(modeFromSearch("?depth=")).toBeUndefined();
+  });
+
+  it("builds a link that reads back as the same mode", () => {
+    for (const mode of MODE_ORDER) {
+      const link = new URL(depthLink(mode, { origin: "https://example.test", pathname: "/progressive-depth/" }));
+      expect(link.origin + link.pathname).toBe("https://example.test/progressive-depth/");
+      expect(link.hash).toBe("#try");
+      expect(modeFromSearch(link.search)).toBe(mode);
     }
   });
 });

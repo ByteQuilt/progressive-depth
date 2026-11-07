@@ -1,6 +1,7 @@
 import { LayeredMark } from "./LayeredMark";
 import { REPO_URL } from "./links";
 
+/** Fixed over every section. Its colours follow the tone of whatever is under it. */
 export function Header() {
   return (
     <header className="site-header">

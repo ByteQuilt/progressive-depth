@@ -1,9 +1,11 @@
+import { LayeredMark } from "./LayeredMark";
 import { BLOG_URL, NPM_URL, REPO_URL } from "./links";
 
 export function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" data-tone="dark">
       <div className="wrap">
+        <LayeredMark />
         <p>
           Created by <a href="https://bytesbybrandon.com">Brandon D. Phillips</a> at <a href="https://bytequilt.com">ByteQuilt</a>. MIT license.
         </p>

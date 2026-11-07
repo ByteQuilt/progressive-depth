@@ -1,5 +1,6 @@
 import "@fontsource-variable/dm-sans/wght.css";
-import "@fontsource-variable/space-grotesk/wght.css";
+import "@fontsource/instrument-serif/latin-400.css";
+import "@fontsource/instrument-serif/latin-400-italic.css";
 import "@fontsource/dm-mono/latin-400.css";
 import "@fontsource/dm-mono/latin-500.css";
 import "@bytequilt/progressive-depth/styles.css";
