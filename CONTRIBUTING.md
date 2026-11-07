@@ -18,9 +18,13 @@ Thanks for your interest in contributing.
 ```bash
 git clone https://github.com/bytequilt/progressive-depth.git
 cd progressive-depth
-npm install
-npm run dev
+pnpm install --frozen-lockfile
+pnpm dev
 ```
+
+Use the pnpm version pinned in [package.json](./package.json). CI uses Node 24;
+use the same Node version when reproducing its checks. `pnpm dev` watches the
+library build; follow the [demo guide](./examples/demo/README.md#run-it) to run a site.
 
 ## Workflow
 
@@ -30,8 +34,15 @@ We use GitHub Actions for Continuous Integration.
 2.  **Make changes** locally.
 3.  **Run checks** before pushing:
     ```bash
+    pnpm check
     pnpm typecheck
+    pnpm test
     pnpm build
+    pnpm run check:package
+    pnpm --dir examples/demo install --frozen-lockfile
+    pnpm --dir examples/demo typecheck
+    pnpm --dir examples/demo test
+    pnpm --dir examples/demo build
     ```
 4.  **Open a Pull Request** to `main`.
     - The CI workflow will automatically run tests and build checks.
@@ -41,7 +52,9 @@ We use GitHub Actions for Continuous Integration.
 
 - Keep changes focused. One PR per feature or fix.
 - Follow existing code style.
-- Update documentation if your change affects the public API.
+- Update documentation if your change affects the public API. Use the
+  [source map and update triggers](./docs/MAINTENANCE.md#source-map-and-ownership)
+  and complete the [documentation checks](./docs/MAINTENANCE.md#validation).
 - Add yourself to the contributors section if you'd like.
 
 ## Code of Conduct

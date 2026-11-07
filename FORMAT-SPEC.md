@@ -139,10 +139,17 @@ interactive toggle, so the format works on any rendering platform.
 
 Implementations must ensure:
 
-- All layers are accessible to screen readers regardless of reading mode
+- All layers are available in the default Deep Dive mode
+- In reduced-depth modes, inactive layers are hidden from assistive technology
+  and their interactive descendants are removed from keyboard navigation
 - The toggle is keyboard navigable
-- Hidden layers use appropriate ARIA attributes (not `display: none`)
+- Hidden layers expose `aria-hidden="true"`; visual hiding must also prevent
+  keyboard focus (ARIA alone does not do this)
 - Color contrast meets WCAG AA for all layers
+
+The React implementation uses `aria-hidden` and `visibility: hidden` for inactive
+layers. See the [visibility decision](./docs/adr/ADR-0001-layer-visibility.md) for
+the source and test evidence. Custom renderers must preserve equivalent behavior.
 
 ## Naming
 
