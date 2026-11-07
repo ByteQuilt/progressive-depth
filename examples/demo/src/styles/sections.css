@@ -1,254 +1,736 @@
-/* Header */
+/* The site is written in layers, so the package's own styles are tuned once here. */
+
+.site {
+  --pd-mycelium-border-width: 1px;
+  --pd-transition-easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --pd-transition-duration: 0.6s;
+}
+
+/* Header: fixed, and recoloured by the tone of the section under it. */
 
 .site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 8px 24px;
-  padding: 16px var(--gutter);
-  border-bottom: 1px solid var(--line);
+  padding: 14px var(--gutter);
+  color: var(--fg);
+  transition: background-color 0.4s var(--ease-out);
+}
+
+html[data-dial="on"] .site-header {
+  background: color-mix(in oklab, var(--tone-bg) 92%, transparent);
+  box-shadow: 0 1px 0 var(--rule);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font: 600 0.8rem var(--font-mono);
-  letter-spacing: 0.08em;
+  font: 600 0.9375rem var(--font-body);
+  letter-spacing: 0.005em;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 .mark {
   width: 28px;
   height: 28px;
-  color: var(--coral-text);
+  color: var(--em);
 }
 
 .site-nav {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 8px 24px;
-  font: 500 0.75rem var(--font-mono);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  gap: 4px 28px;
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .site-nav a {
-  padding: 8px 0;
+  padding: 10px 0;
   text-decoration: none;
+  transition: opacity 0.3s;
 }
 
 .site-nav a:hover {
-  color: var(--coral-text);
+  opacity: 0.65;
 }
 
 .site-nav .nav-repo {
-  padding: 8px 14px;
-  border: 1px solid var(--ink);
-  border-radius: 3px;
+  padding: 8px 18px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
 }
 
-/* Hero */
+/* Descent: the hero. Scrolling dives through paper, cobalt and ink. */
 
-.hero {
-  padding: 72px 0 96px;
+.descent {
+  position: relative;
+  height: 340svh;
+  background: var(--ink);
+  color: var(--fg);
 }
 
-.hero-grid {
+.descent-stage {
+  --cx: 70%;
+  --art-size: min(88svh, 58vw);
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 600px;
+  overflow: hidden;
+  background: color-mix(in oklab, color-mix(in oklab, var(--paper) calc((1 - var(--t1, 0)) * 100%), var(--cobalt)) calc((1 - var(--t2, 0)) * 100%), var(--ink));
+}
+
+.descent-art {
+  position: absolute;
+  left: calc(var(--cx) - var(--art-size) / 2);
+  top: calc(50% - var(--art-size) / 2);
+  width: var(--art-size);
+  height: var(--art-size);
+  overflow: visible;
+}
+
+.ring {
+  transform-origin: 500px 500px;
+}
+
+.ring-canopy {
+  transform: scale(var(--s1, 1)) rotate(var(--turn1, 0deg));
+}
+
+.ring-understory {
+  transform: scale(var(--s2, 0.56)) rotate(var(--turn2, 0deg));
+}
+
+.ring-mycelium {
+  transform: scale(var(--s3, 0.1)) rotate(var(--turn3, 0deg));
+}
+
+.ring-body {
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.ring-canopy .ring-body {
+  fill: var(--cobalt);
+  stroke: color-mix(in oklab, var(--paper) 55%, transparent);
+}
+
+.ring-understory .ring-body {
+  fill: var(--ink);
+  stroke: var(--yellow);
+}
+
+.ring-mycelium .ring-body {
+  fill: var(--coral);
+  stroke: var(--ink);
+}
+
+.contour {
+  fill: none;
+  stroke-width: 1;
+  transform-origin: 500px 500px;
+  vector-effect: non-scaling-stroke;
+}
+
+.ring-canopy .contour {
+  stroke: color-mix(in oklab, var(--paper) 24%, transparent);
+}
+
+.ring-understory .contour {
+  stroke: color-mix(in oklab, var(--yellow) 32%, transparent);
+}
+
+.halo {
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 1;
+  opacity: calc(var(--nodes, 0) * 0.45);
+  transform-origin: 500px 500px;
+  vector-effect: non-scaling-stroke;
+}
+
+.roots path {
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: var(--root-width, 8);
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--roots, 0));
+}
+
+.nodes circle {
+  fill: var(--yellow);
+  opacity: var(--nodes, 0);
+}
+
+/* Film grain keeps the flat colour fields from looking like a vector export. */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.descent-copy {
+  position: absolute;
+  inset: 0;
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: 56px;
-  align-items: center;
+  align-content: center;
+  justify-items: start;
+  padding-top: 72px;
+  padding-bottom: 200px;
 }
 
-.eyebrow {
-  margin: 0 0 20px;
-  color: var(--cobalt);
+.act {
+  grid-area: 1 / 1;
+  max-width: 34rem;
+  margin: 0;
 }
 
-.hero h1 {
-  margin-bottom: 28px;
-  overflow-wrap: anywhere;
+.act-canopy {
+  opacity: var(--act1, 1);
 }
 
-.hero-intro {
-  max-width: 28rem;
-  margin: 0 0 32px;
-  color: var(--muted);
-  font-size: 1.125rem;
+.act-understory {
+  opacity: var(--act2, 0);
 }
 
-.hero-actions {
+.act-mycelium {
+  opacity: var(--act3, 0);
+}
+
+.act-canopy span,
+.act-canopy em {
+  display: block;
+}
+
+.act-canopy {
+  font-size: clamp(3.4rem, 8.6vw, 6rem);
+  line-height: 0.95;
+}
+
+.act-understory,
+.act-mycelium {
+  max-width: 24ch;
+  font: 400 clamp(2rem, 3.8vw, 3.25rem) / 1.1 var(--font-display);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.act em {
+  color: var(--em);
+  font-style: italic;
+}
+
+.descent-dock {
+  position: absolute;
+  inset: auto 0 clamp(20px, 5svh, 48px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+
+.layer-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 32px;
+  margin: 0;
+  padding: 14px 0 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+  color: var(--fg-muted);
+  font-size: 0.8125rem;
+}
+
+.layer-key strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.dock-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 16px 28px;
+  gap: 8px 24px;
 }
 
-.button {
-  display: inline-block;
-  padding: 14px 22px;
+.dock-actions .install {
+  margin-right: 8px;
+}
+
+/* The hero's own load: the claim rises in, line by line. */
+@media (prefers-reduced-motion: no-preference) {
+  .act-canopy span,
+  .act-canopy em {
+    animation: rise 1.1s var(--ease-out) both;
+    animation-delay: 0.1s;
+  }
+
+  .act-canopy em {
+    animation-delay: 0.22s;
+  }
+
+  .act-canopy span:last-child {
+    animation-delay: 0.34s;
+  }
+
+  .descent-dock {
+    animation: fade-in 1s var(--ease-out) 0.7s both;
+  }
+
+  .descent-art {
+    animation: art-in 1.6s var(--ease-out) both;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+    filter: blur(8px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes art-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+/* Without motion the hero is one still composition instead of a pinned dive. */
+@media (prefers-reduced-motion: reduce) {
+  .descent {
+    height: auto;
+  }
+
+  .descent-stage {
+    position: relative;
+  }
+
+  .act {
+    grid-area: auto;
+    opacity: 1;
+  }
+
+  .act-mycelium {
+    display: none;
+  }
+
+  .descent-copy {
+    gap: 28px;
+  }
+}
+
+/* Idea: the explanation is written in layers, then drawn to scale. */
+
+.idea {
+  padding: 140px 0 120px;
   background: var(--ink);
-  color: var(--paper);
-  font: 500 0.75rem var(--font-mono);
-  letter-spacing: 0.06em;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition:
-    box-shadow 0.2s,
-    transform 0.2s;
-}
-
-.button:hover {
-  transform: translateY(-3px);
-  box-shadow: 5px 5px 0 var(--cobalt);
-}
-
-.text-link {
-  padding-bottom: 3px;
-  border-bottom: 1px solid var(--ink);
-  font-size: 0.9rem;
-  text-decoration: none;
-}
-
-/* Idea */
-
-.idea-section {
-  padding: 96px 0;
-  background: var(--paper-deep);
+  color: var(--fg);
 }
 
 .idea-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  margin-bottom: 72px;
-}
-
-.large-copy {
-  margin: 0 0 24px;
-  font: 500 1.6rem / 1.3 var(--font-display);
-  letter-spacing: -0.03em;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 64px 96px;
+  align-items: start;
 }
 
 .idea-body {
-  max-width: 30rem;
+  max-width: 34rem;
+  --pd-canopy-font-size: clamp(1.6rem, 2.4vw, 2.05rem);
+  --pd-canopy-line-height: 1.18;
 }
 
-.idea-body p:not(.large-copy) {
+.idea-claim {
+  margin-bottom: 28px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+.idea-claim p,
+.idea-body p {
   margin: 0 0 20px;
-  color: var(--muted);
 }
 
-.layer-list {
+.idea-body p {
+  text-wrap: pretty;
+}
+
+.strata {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 0;
+  margin: 120px 0 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--rule);
 }
 
-.layer-list li {
-  padding: 28px 24px 0 0;
+.strata li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1.5fr);
+  align-items: center;
+  gap: 12px 48px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--rule);
 }
 
-.layer-list li + li {
-  padding-left: 24px;
-  border-left: 1px solid var(--line);
+.strata h3 {
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  line-height: 1;
 }
 
-.layer-list h3 {
-  font-size: 1.4rem;
-}
-
-.layer-view {
-  margin: 4px 0 12px;
-  color: var(--coral-text);
-}
-
-.layer-list p {
+.strata p {
   margin: 0;
 }
 
-.layer-list li > p:last-child {
-  color: var(--muted);
+.strata .strata-view {
+  margin-top: 8px;
+  color: var(--accent-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-/* Use it */
-
-.use-section {
-  padding: 96px 0;
-  background: var(--paper);
+.strata-text {
+  color: var(--fg-muted);
 }
 
-.use-intro code {
-  overflow-wrap: anywhere;
+.strata-bar {
+  display: block;
+  width: calc(var(--length) * 100%);
+  height: 12px;
+  border-radius: 999px;
+  background: var(--layer);
+  transform-origin: left;
+}
+
+.strata [data-layer="canopy"] {
+  --layer: var(--layer-canopy);
+}
+
+.strata [data-layer="understory"] {
+  --layer: var(--layer-understory);
+}
+
+.strata [data-layer="mycelium"] {
+  --layer: var(--layer-mycelium);
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .strata-bar {
+      animation: grow linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 90%;
+    }
+  }
+}
+
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Dial: the page's reading depth, a pill docked to the bottom once the dive is over. */
+
+.dial {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 6px 6px 6px 24px;
+  border-radius: 999px;
+  background: var(--dial-bg);
+  color: var(--dial-fg);
+  box-shadow:
+    0 24px 48px -20px rgba(8, 14, 28, 0.6),
+    0 0 0 1px color-mix(in oklab, var(--dial-fg) 18%, transparent);
+  transform: translateX(-50%);
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.7s var(--ease-out),
+    background-color 0.4s,
+    color 0.4s,
+    visibility 0s;
+}
+
+html[data-dial="off"] .dial {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 24px);
+  transition:
+    opacity 0.4s var(--ease-out),
+    transform 0.5s var(--ease-out),
+    visibility 0s 0.5s;
+}
+
+html[data-tone="light"] .dial {
+  --dial-bg: var(--ink);
+  --dial-fg: var(--paper);
+}
+
+html[data-tone="dark"] .dial,
+html[data-tone="cobalt"] .dial {
+  --dial-bg: var(--paper);
+  --dial-fg: var(--ink);
+}
+
+.dial-note {
+  margin: 0;
+  font-size: 0.8125rem;
+  opacity: 0.72;
+}
+
+.dial-rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--count), 92px);
+}
+
+.dial-indicator {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(100% / var(--count));
+  border-radius: 999px;
+  background: var(--dial-fg);
+  transform: translateX(calc(var(--index) * 100%));
+  transition: transform 0.7s var(--ease-out);
+}
+
+.dial-stop {
+  position: relative;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font: 600 0.8125rem var(--font-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.4s var(--ease-out);
+}
+
+.dial-stop[aria-checked="true"] {
+  color: var(--dial-bg);
+}
+
+.dial-stop:focus-visible {
+  outline-color: var(--coral);
+}
+
+/* Use it: one terminal window beside the running result. */
+
+.use {
+  padding: 140px 0 100px;
+  background: var(--ink);
+  color: var(--fg);
 }
 
 .use-intro {
   max-width: 40rem;
-  margin: 24px 0 48px;
-  color: var(--muted);
+  margin: 32px 0 56px;
+  --pd-canopy-font-size: 1.25rem;
+  --pd-canopy-font-weight: 500;
+}
+
+.use-intro p {
+  margin: 0 0 14px;
+}
+
+.use-intro code {
+  overflow-wrap: anywhere;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: color-mix(in oklab, var(--fg) 12%, transparent);
+  font-size: 0.875em;
 }
 
 .use-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   gap: 56px;
   align-items: start;
 }
 
-.use-grid > * {
-  min-width: 0;
-}
-
-.use-grid h3 {
+.use-demo h3 {
   margin: 0 0 8px;
-  font-size: 1.4rem;
+  font-size: 2rem;
 }
 
 .use-note {
-  margin: 0 0 20px;
-  color: var(--muted);
+  margin: 0 0 24px;
+  color: var(--fg-muted);
+}
+
+.use-note a {
+  color: var(--fg);
 }
 
 .use-markdoc {
-  margin-top: 56px;
-  padding-top: 56px;
-  border-top: 1px solid var(--line);
+  max-width: 44rem;
+  margin: 48px 0 0;
 }
 
-.use-grid .code:last-child {
-  margin-bottom: 0;
+.terminal {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: var(--ink-deep);
+  box-shadow: 0 50px 90px -50px rgba(0, 0, 0, 0.7);
+}
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px 0 6px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.terminal-tabs {
+  display: flex;
+  margin-right: auto;
+}
+
+.terminal-tabs button {
+  position: relative;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 0;
+  background: none;
+  color: var(--muted-on-ink);
+  font: 600 0.8125rem var(--font-body);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.terminal-tabs button::after {
+  content: "";
+  position: absolute;
+  inset: auto 16px 0;
+  height: 2px;
+  background: var(--coral);
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease-out);
+}
+
+.terminal-tabs button:hover,
+.terminal-tabs button[aria-selected="true"] {
+  color: var(--paper);
+}
+
+.terminal-tabs button[aria-selected="true"]::after {
+  transform: scaleX(1);
+}
+
+.terminal-file {
+  color: var(--muted-on-ink);
+  font: 400 0.75rem var(--font-mono);
+}
+
+.terminal-copy {
+  min-height: 32px;
+  padding: 0 14px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: none;
+  color: var(--paper);
+  font: 600 0.75rem var(--font-body);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.terminal-copy:hover {
+  background: color-mix(in oklab, var(--paper) 14%, transparent);
+}
+
+.terminal-panel pre {
+  max-height: 34rem;
+  margin: 0;
+  padding: 22px 24px 26px;
+  overflow: auto;
+  color: var(--paper);
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  tab-size: 2;
+}
+
+.tok-keyword {
+  color: #f09a8a;
+}
+
+.tok-string {
+  color: var(--yellow);
+}
+
+.tok-tag {
+  color: var(--cobalt-on-ink);
+}
+
+.tok-punct {
+  color: #98a5bf;
+}
+
+.tok-heading {
+  color: var(--yellow);
+  font-weight: 500;
 }
 
 .use-live {
-  padding: 24px;
-  background: #fff;
-  border: 1px solid var(--ink);
+  padding: 28px;
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--ink);
+  --pd-canopy-color: var(--ink);
+  --pd-understory-color: var(--ink);
+  --pd-mycelium-color: var(--muted);
+  --pd-mycelium-border-color: var(--line-strong);
+  --pd-toggle-bg: var(--paper-deep);
+  --pd-toggle-border-radius: 999px;
+  --pd-toggle-button-border-radius: 999px;
 }
 
 .use-live .progressive-depth {
   --pd-canopy-color: var(--ink);
   --pd-understory-color: var(--ink);
   --pd-mycelium-color: var(--muted);
-  --pd-mycelium-border-color: var(--coral);
+  --pd-mycelium-border-color: var(--line-strong);
   --pd-toggle-bg: var(--paper-deep);
+  --pd-toggle-border-radius: 999px;
+  --pd-toggle-button-border-radius: 999px;
 }
 
 .use-live h4 {
-  margin: 16px 0 12px;
-  font-size: 1.5rem;
+  margin: 20px 0 10px;
+  font-size: 1.9rem;
+  line-height: 1.05;
 }
 
 .use-live .progressive-depth-toggle-button {
   color: var(--ink);
-  font: 500 0.75rem var(--font-mono);
-  text-transform: uppercase;
+  font: 600 0.8125rem var(--font-body);
 }
 
 .use-live .progressive-depth-toggle-button[aria-checked="true"] {
@@ -260,39 +742,103 @@
   margin: 0 0 12px;
 }
 
-.code {
-  margin: 0 0 20px;
-  padding: 18px 20px;
-  overflow-x: auto;
-  background: var(--ink);
-  color: var(--paper);
-  font-size: 0.875rem;
-  line-height: 1.6;
+/* Closing: back at the canopy, with one ask. */
+
+.closing {
+  position: relative;
+  overflow: hidden;
+  padding: 150px 0 160px;
+  background: var(--cobalt);
+  color: var(--fg);
+}
+
+.closing-art {
+  position: absolute;
+  right: -14vw;
+  bottom: -30vw;
+  width: min(70vw, 900px);
+  height: auto;
+  fill: none;
+  stroke: color-mix(in oklab, var(--paper) 26%, transparent);
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+
+.closing-art path {
+  transform-origin: 500px 500px;
+  vector-effect: non-scaling-stroke;
+}
+
+.closing-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 56px;
+}
+
+.closing h2 {
+  font-size: clamp(3rem, 8.5vw, 6rem);
+}
+
+.closing-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: 28px;
+  max-width: 34rem;
+}
+
+.closing .install-copy {
+  background: color-mix(in oklab, var(--ink) 40%, transparent);
+}
+
+.closing .install-copy:hover,
+.closing .install[data-copied="true"] .install-copy {
+  background: color-mix(in oklab, var(--ink) 58%, transparent);
+}
+
+.closing-body p {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.closing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 28px;
 }
 
 /* Footer */
 
 .site-footer {
-  padding: 32px 0;
-  background: var(--paper-deep);
-  color: var(--muted);
+  padding: 36px 0;
+  background: var(--ink-deep);
+  color: var(--fg-muted);
+  font-size: 0.875rem;
 }
 
 .site-footer .wrap {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  align-items: center;
   gap: 16px 32px;
 }
 
+.site-footer .mark {
+  flex: none;
+}
+
 .site-footer p {
-  margin: 0;
+  margin: 0 auto 0 0;
 }
 
 .site-footer ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 24px;
+  gap: 4px 24px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -302,47 +848,101 @@
   display: inline-block;
   min-height: 24px;
   padding-block: 4px;
-  color: var(--ink);
+  color: var(--fg);
 }
 
 /* Narrow screens */
 
 @media (max-width: 800px) {
-  .hero {
-    padding: 48px 0 64px;
+  .site-nav a:not(.nav-repo) {
+    display: none;
   }
 
-  .hero-grid,
+  .descent-stage {
+    --cx: 50%;
+    --art-size: 126vw;
+  }
+
+  .descent-art {
+    top: calc(33% - var(--art-size) / 2);
+  }
+
+  .descent-copy {
+    align-content: end;
+    padding-bottom: 218px;
+  }
+
+  .act-canopy {
+    font-size: clamp(3rem, 15vw, 4.4rem);
+  }
+
+  .layer-key {
+    display: none;
+  }
+
+  .dock-actions .install {
+    width: 100%;
+    margin: 0 0 4px;
+  }
+
+  .idea,
+  .use {
+    padding: 96px 0 72px;
+  }
+
+  .closing {
+    padding: 104px 0 120px;
+  }
+
   .idea-grid,
   .use-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
 
-  .idea-section,
-  .use-section {
-    padding: 64px 0;
+  .strata {
+    margin-top: 72px;
   }
 
-  .layer-list {
+  .strata li {
     grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 28px 0;
   }
 
-  .layer-list li,
-  .layer-list li + li {
-    padding: 20px 0;
-    border-left: 0;
-    border-bottom: 1px solid var(--line);
+  .strata-bar {
+    margin-top: 6px;
+  }
+
+  .dial {
+    bottom: 12px;
+    padding: 5px;
+  }
+
+  .dial-note {
+    display: none;
+  }
+
+  .dial-rail {
+    grid-template-columns: repeat(var(--count), minmax(76px, 1fr));
+  }
+
+  .terminal-file {
+    display: none;
+  }
+
+  .site-footer p {
+    margin: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .button,
-  .use-live .progressive-depth-toggle-button {
+  .site-header,
+  .dial,
+  .dial-indicator,
+  .dial-stop,
+  .terminal-tabs button,
+  .terminal-tabs button::after {
     transition: none;
-  }
-
-  .button:hover {
-    transform: none;
   }
 }
