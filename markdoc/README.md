@@ -65,6 +65,13 @@ const components = {
 Markdoc.renderers.react(content, React, { components });
 ```
 
+Wrap the rendered output in `ProgressiveDepthProvider` and import
+`@bytequilt/progressive-depth/styles.css` as shown in the
+[React quick start](../README.md#quick-start). The snippets above are integration
+fragments: `content` is your transformed Markdoc document and `React` must be
+imported by the host. Install Markdoc (and Keystatic for the recipe below) in
+your host project; no separate Markdoc adapter package is shipped here.
+
 ## Keystatic Integration
 
 If you use [Keystatic](https://keystatic.com/), add the layers as

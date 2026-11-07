@@ -1,2 +1,6 @@
 dist
 node_modules
+
+# Local skill execution records and per-run projections
+.reactive/
+.docs/docs-architect/jobs/

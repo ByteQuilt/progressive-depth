@@ -41,6 +41,7 @@ import {
   Understory,
   Mycelium,
 } from "@bytequilt/progressive-depth";
+import "@bytequilt/progressive-depth/styles.css";
 
 function BlogPost() {
   return (
@@ -85,6 +86,15 @@ The deep dive. Examples, evidence, technical details, stories.
 ```
 
 See [markdoc/](./markdoc/) for tag schemas and configuration.
+
+## Documentation
+
+- [Format specification](./FORMAT-SPEC.md): layer semantics and accessibility contract.
+- [React API and customization](./docs/API.md): components, hooks, primitives, persistence and types.
+- [Markdoc integration](./markdoc/README.md): tag schemas and renderer setup.
+- [Demo guide](./examples/demo/README.md): run and explore the example site.
+- [Contributing](./CONTRIBUTING.md) and [publishing](./PUBLISHING.md): development checks and releases.
+- [Documentation maintenance](./docs/MAINTENANCE.md): sources, ownership and update workflow.
 
 ## Writing Guidelines
 
